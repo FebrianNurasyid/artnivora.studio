@@ -24,7 +24,7 @@ namespace Artnivora.Studio.Portal.Data.Services.Migrations
 		}
 		public override void Down()
 		{
-			Delete.Table("TblProduction");
+			Delete.Table("Production");
 		}
 	}
 }
