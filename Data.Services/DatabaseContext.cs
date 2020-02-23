@@ -39,6 +39,7 @@
         public DbSet<ProductionAttachment> ProductionAttachment { get; set; }
         public DbSet<ProductionAttachments> ProductionAttachments { get; set; }
 
+        public DbSet<Mst_Division> Mst_Division { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

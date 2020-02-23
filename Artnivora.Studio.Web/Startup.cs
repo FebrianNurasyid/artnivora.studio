@@ -113,6 +113,7 @@ namespace Artnivora.Studio.Portal.Web
             builder.RegisterType<VolunteerProfileService>().InstancePerDependency();
             builder.RegisterType<EmailService>().InstancePerDependency();
             builder.RegisterType<ProductionServices>().InstancePerDependency();
+            builder.RegisterType<MasterService>().InstancePerDependency();
 
             // Data layer services
             builder.RegisterType<UserDataService>()
@@ -145,6 +146,10 @@ namespace Artnivora.Studio.Portal.Web
             builder.RegisterType<ProductionDataService>()
             .As<IProductionDataService>()
             .InstancePerDependency();
+
+            builder.RegisterType<MasterDataService>()
+           .As<IMasterDataService>()
+           .InstancePerDependency();
 
             builder.Populate(services);            
 
