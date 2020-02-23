@@ -1,0 +1,21 @@
+﻿.footer {
+    flex-shrink: 0;
+    padding-top: 20px;
+    text-align: center;
+    background-color: #662e91;
+    color: white;
+}
+
+.footer ul li a {
+    display: block;
+    padding: 0px 0px 0px;
+    font-size: 17px;
+    color: #fff;
+    font-weight: 300;
+    line-height: 35px;
+    opacity: .75;
+    text-decoration: none;
+    border: 0px;
+    outline: none;
+    transition: all .5s;
+}

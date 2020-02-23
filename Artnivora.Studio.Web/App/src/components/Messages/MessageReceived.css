@@ -1,0 +1,135 @@
+﻿@media (min-width: 1024px) {
+    .messageReceivedContainer {
+        padding-left: 3%;
+        padding-right: 3%;
+        width: 100%;
+    }
+}
+
+.messageReceivedContainer > h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: #662e90;
+}
+
+.messageReceivedHeader {
+    display: flex;
+    justify-content: space-between;
+    top: 10px;
+    padding: 5px 0px 15px 0px;
+}
+
+    .messageReceivedHeader > h2, h3 {
+        font-family: 'Montserrat', sans-serif;
+        color: #eb6200;
+    }
+
+.btn-group, .btn-group-vertical {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.btn.btn-default {
+    background: #662e90 !important;
+    outline: none !important;
+    color: #fff !important;
+    border-color: #fff !important;
+}
+
+.col {
+    font-weight: 700 !important;
+}
+
+.cont {
+    display: block;
+    position: relative;
+    padding-top: 0px !important;
+    padding-left: 40px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-bottom: 25px;
+}
+
+.headerLine {
+    border: 1px solid #662e90;
+}
+
+.border-line {
+    border-bottom: 2px solid #662e90;
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #fff;
+    border: 1px solid #662e90;
+}
+
+.cont input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+    .cont input:checked ~ .checkmark {
+        background-color: #662e90;
+    }
+
+        .cont input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+.cont .checkmark:after {
+    left: 9px;
+    top: 7px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.form-group.required .control-label:after {
+    content: " *";
+    color: red;
+}
+
+.pointer {
+    cursor: pointer;
+}
+.attachment-button {
+    border-width: 1px;
+    border-style: solid;
+    font-size: 14px;
+    color: #FFF;
+    padding: 12px 17px;
+    background: #343434;
+    border-color: #343434;
+    display: inline-block;
+    transition: all .25s ease;
+    font-weight: 400;
+    line-height: 1;
+    border: 0 none;
+    outline: 0 none;
+    border-radius: 10px;
+}

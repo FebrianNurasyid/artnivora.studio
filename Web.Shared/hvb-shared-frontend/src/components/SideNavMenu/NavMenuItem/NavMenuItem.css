@@ -1,0 +1,23 @@
+﻿.sidenav-parent-link {
+    cursor: pointer;
+}
+
+.sidenav-parent-link a:hover {
+    color: #662e90;
+}
+
+.subnav-container {
+    width: 100%;
+    padding-left: 0px;
+    padding-right:0px;
+    margin:0px;
+}
+
+.subnav-collapse {
+    width: 100%;
+}
+
+.subnav-navbar {
+    padding: 0px;
+
+}

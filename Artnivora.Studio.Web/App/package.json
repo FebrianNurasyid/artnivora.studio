@@ -1,0 +1,77 @@
+{
+  "name": "artnivora.studio",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-react": "^7.7.4",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "bootstrap": "^4.4.1",
+    "crypto-js": "^3.1.9-1",
+    "font-awesome": "^4.7.0",
+    "hvb-shared-frontend": "file:../../Web.Shared/hvb-shared-frontend",
+    "immutable": "^4.0.0-rc.12",
+    "jquery": "^3.4.1",
+    "react": "^16.12.0",
+    "react-datepicker": "^2.11.0",
+    "react-dom": "^16.12.0",
+    "react-icons": "^3.8.0",
+    "react-images-upload": "^1.2.7",
+    "react-localize-redux": "^3.5.3",
+    "react-password-strength": "^2.4.0",
+    "react-password-strength-bar": "^0.3.0",
+    "react-redux": "^5.1.2",
+    "react-router-bootstrap": "^0.24.4",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "^5.0.0-alpha.8",
+    "react-scripts": "3.3.0",
+    "react-summernote": "^2.0.0",
+    "react-test-renderer": "^16.12.0",
+    "react-toastify": "^5.4.1",
+    "reactstrap": "^6.5.0",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
+    "rimraf": "^2.7.1",
+    "urijs": "^1.19.2"
+  },
+  "devDependencies": {
+    "ajv": "^6.10.2",
+    "cross-env": "^5.2.1",
+    "customize-cra": "^0.9.1",
+    "eslint": "^6.6.0",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-plugin-flowtype": "^2.50.3",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.17.0",
+    "jest": "^24.9.0",
+    "react-app-rewired": "^2.1.5"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "proxy": "http://localhost:5002",
+  "scripts": {
+    "start": "rimraf ./build && react-app-rewired start",
+    "pack-all": "node node_modules/npm-pack-all",
+    "build": "react-app-rewired build",
+    "test": "jest",
+    "test:watch": "npm run test -- --watch",
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src/"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

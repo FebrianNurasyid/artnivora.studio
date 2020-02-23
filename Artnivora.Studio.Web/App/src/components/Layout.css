@@ -1,0 +1,34 @@
+﻿.content {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.layoutRoot {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 100%;
+}
+
+.mainContent {
+    width: 100%;
+    padding-top: 10px;
+    margin-left: 15px;
+}
+
+@media (min-width: 575px) {
+    .mainContainer {
+        flex-direction: row;
+        padding-right: 15px;
+        margin-left: -15px;
+    }
+}

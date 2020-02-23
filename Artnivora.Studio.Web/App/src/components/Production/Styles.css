@@ -1,0 +1,181 @@
+﻿.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.formLabel {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.btn.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    cursor: inherit;
+    display: block;
+}
+.btn-file-upload {
+    line-height: 2.5;
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    cursor: inherit;
+    display: block;
+    }
+
+.purple-button {
+    background-color: #662e90;
+    border-radius: 25px;
+    text-align: center;
+    width:200px;
+    height:52px;
+    color:#FFFFFF;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+}
+.pink-button {
+    background-color: #ec207c;
+    border: #ec207c;
+    text-align: center;
+    border-radius: 25px;
+    width: 200px;
+    height: 52px;
+    color: #FFFFFF;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+}
+.formLabelName {
+    width: 30%;
+}
+
+.formError {
+    color: red;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.form-group.required .control-label:after {
+    content: " *";
+    color: red;
+}
+
+.CustomInput.ReactPasswordStrength {
+    border-color: #111;
+    font-family: serif;
+    font-size: 20px;
+}
+
+.CustomInput.ReactPasswordStrength.is-strength-0 .ReactPasswordStrength-strength-desc {
+    color: #D95D39;
+}
+
+.CustomInput.ReactPasswordStrength.is-strength-1 .ReactPasswordStrength-strength-desc {
+    color: #F18805;
+}
+
+.CustomInput.ReactPasswordStrength.is-strength-2 .ReactPasswordStrength-strength-desc {
+    color: #FCBA04;
+}
+
+.CustomInput.ReactPasswordStrength.is-strength-3 .ReactPasswordStrength-strength-desc {
+    color: #FCBA04;
+}
+
+.CustomInput.ReactPasswordStrength.is-strength-4 .ReactPasswordStrength-strength-desc {
+    color: #00A6A6;
+}
+
+.CustomInput.ReactPasswordStrength.is-strength-0 .ReactPasswordStrength-strength-bar {
+    background: #D95D39;
+}
+
+.CustomInput.ReactPasswordStrength.is-strength-1 .ReactPasswordStrength-strength-bar {
+    background: #F18805;
+}
+
+.CustomInput.ReactPasswordStrength.is-strength-2 .ReactPasswordStrength-strength-bar {
+    background: #FCBA04;
+}
+
+.CustomInput.ReactPasswordStrength.is-strength-3 .ReactPasswordStrength-strength-bar {
+    background: #FCBA04;
+}
+
+.CustomInput.ReactPasswordStrength.is-strength-4 .ReactPasswordStrength-strength-bar {
+    background: #00A6A6;
+}
+
+.btn-add {
+    margin-bottom: 10px;
+    margin-top: -10px;    
+}
+
+.hvb-button {
+    border-width: 1px;
+    border-style: solid;
+    color: #FFF;
+    padding: 12px 17px;
+    background: #eb6200;
+    border-color: #eb6200;
+    display: inline-block;
+    transition: all .25s ease;
+    font-weight: 400;
+    line-height: 1;
+    border: 0 none;
+    outline: 0 none;
+    border-radius: 10px !important;    
+    right:0px;
+}
+
+    .hvb-button:focus,
+    .hvb-button:active,
+    .hvb-button:visited,
+    .hvb-button:hover {
+        background: #eb6200 !important;
+        border-color: #eb6200 !important;
+    }
+
+.hvb-button-red {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+    .hvb-button-red:focus,
+    .hvb-button-red:active,
+    .hvb-button-red:visited,
+    .hvb-button-red:hover {
+        background: #9e1522 !important;
+        border-color: #9e1522 !important;
+    }
+
+.p-button {
+    margin-left: 35px;
+    text-decoration: none !important;
+    margin-top: 0px !important;
+}
