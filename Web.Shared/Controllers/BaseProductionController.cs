@@ -244,6 +244,7 @@
                             {
                                 Id = pd.ProductionAttachments.FirstOrDefault().Id.ToString(),
                                 ProductionAttachementId = pd.ProductionAttachments.FirstOrDefault().ProductionAttachementId.ToString(),
+                                FileName = pd.ProductionAttachments.FirstOrDefault().ProductionAttachment.FileName
                             }
                         };
                         response.Productions.Add(addToProd);

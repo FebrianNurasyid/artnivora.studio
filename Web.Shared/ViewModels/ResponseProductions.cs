@@ -29,6 +29,7 @@ namespace Artnivora.Studio.Portal.Web.Shared.ViewModels
     public class ResponseProductionAttacment
     {
         public string Id { get; set; }
-        public string ProductionAttachementId { get; set; }        
+        public string ProductionAttachementId { get; set; }
+        public string FileName { get; set; }
     }
 }

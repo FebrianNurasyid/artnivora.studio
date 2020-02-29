@@ -12,10 +12,15 @@ import { MdAttachFile } from "react-icons/md";
 import fetchProductionsAction from '../../store/productions/actions/fetchProductions';
 
 class ProductionTask extends Component {
+
     componentDidMount() {
         this.props.fetchProductions("Packaging");
     }
 
+    componentDidUpdate() {
+        this.props.fetchProductions("Packaging");
+    }   
+    
     render() {
         return (
             <div>
@@ -38,8 +43,7 @@ class ProductionTask extends Component {
     }
 }
 
-function renderDataTable(props) {
-    debugger;
+function renderDataTable(props) {    
     return (
         <div>
             <div className="btn-add">
@@ -60,7 +64,8 @@ function renderDataTable(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.production.map(prod  =>
+
+                    {props.production.map(prod =>
                         <tr key='1'>
                             <td>{prod.title}</td>
                             <td>{prod.category}</td>
@@ -68,7 +73,7 @@ function renderDataTable(props) {
                             <td>{prod.concept}</td>
                             <td>{prod.createdBy}</td>
                             <td>{prod.createdDate}</td>
-                            <td><a href="#">abc.zip</a></td>
+                            <td><a href="#">{prod.attacment.fileName}</a></td>
                             <td>{prod.status}</td>
                             <td><Link to={`/users/create?id=${1}`}>Edit</Link></td>
                         </tr>
@@ -89,6 +94,6 @@ export default connect(
     dispatch => bindActionCreators({
         fetchUsers: fetchUsersAction,
         searchUsers: searchUsersAction,
-        fetchProductions: fetchProductionsAction
+        fetchProductions: fetchProductionsAction,
     }, dispatch)
 )(ProductionTask);

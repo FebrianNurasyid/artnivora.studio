@@ -55,7 +55,8 @@
 
         public IEnumerable<Production> GetProductions(string filtered)
         {
-            return context.Production.Include(x => x.ProductionAttachments).Where(x => x.Status == filtered).ToList();
+            return context.Production.Include(x => x.ProductionAttachments).ThenInclude(y => y.ProductionAttachment)
+                .Where(x => x.Status == filtered).ToList();
         }
                 
         private bool disposed = false;
