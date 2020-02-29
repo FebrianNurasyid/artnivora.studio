@@ -10,17 +10,28 @@ import styles from './Styles.css';
 import TextInputField from 'hvb-shared-frontend/src/components/TextInputField/TextInputField';
 import { MdAttachFile } from "react-icons/md";
 import fetchProductionsAction from '../../store/productions/actions/fetchProductions';
+import { formatDateForMessage } from 'hvb-shared-frontend/src/helpers/messagesHelper';
+import isEqual from 'react-fast-compare';
 
 class ProductionTask extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+        }
+    }
 
     componentDidMount() {
         this.props.fetchProductions("Packaging");
     }
 
-    componentDidUpdate() {
-        this.props.fetchProductions("Packaging");
+    componentDidUpdate(prevProps) {
+        const { production } = this.props;        
+        if (!isEqual(production, prevProps.production)) {
+            this.props.fetchProductions("Packaging");
+        }
+
     }   
-    
+
     render() {
         return (
             <div>
@@ -43,7 +54,7 @@ class ProductionTask extends Component {
     }
 }
 
-function renderDataTable(props) {    
+function renderDataTable(props) {
     return (
         <div>
             <div className="btn-add">
@@ -66,16 +77,16 @@ function renderDataTable(props) {
                 <tbody>
 
                     {props.production.map(prod =>
-                        <tr key='1'>
+                        <tr key={prod.id}>
                             <td>{prod.title}</td>
                             <td>{prod.category}</td>
                             <td>{prod.themes}</td>
                             <td>{prod.concept}</td>
                             <td>{prod.createdBy}</td>
-                            <td>{prod.createdDate}</td>
+                            <td>{formatDateForMessage(prod.createdDate)}</td>
                             <td><a href="#">{prod.attacment.fileName}</a></td>
                             <td>{prod.status}</td>
-                            <td><Link to={`/users/create?id=${1}`}>Edit</Link></td>
+                            <td><Link to={`/production/addoredit?id=${prod.id}`}>Edit</Link></td>
                         </tr>
                     )}
                 </tbody>

@@ -48,9 +48,19 @@
             }
         }
 
+        public void UpdateProduction(Production entity)
+        {
+            context.Entry(entity).State = EntityState.Modified;
+        }
+
         public void Save()
         {
             context.SaveChanges();
+        }
+
+        public void DeleteAttachment(ProductionAttachment productionAttachment)
+        {
+            context.Remove(productionAttachment);
         }
 
         public IEnumerable<Production> GetProductions(string filtered)
@@ -58,7 +68,13 @@
             return context.Production.Include(x => x.ProductionAttachments).ThenInclude(y => y.ProductionAttachment)
                 .Where(x => x.Status == filtered).ToList();
         }
-                
+
+        public Production GetProdById(Guid id)
+        {
+            return context.Production.Include(x => x.ProductionAttachments).ThenInclude(y => y.ProductionAttachment)
+                .Where(x => x.Id == id).FirstOrDefault();
+        }
+
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)

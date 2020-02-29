@@ -28,7 +28,7 @@ class Overview extends Component {
             <div className="overview-container">
                 <div className="overview-container-left">
                     <div className="">
-                        <h3>Hi, Welcome Back <b>{this.props.userLoginDashboard.firstName}</b></h3>
+                        <h3>Hi <b>{this.props.userLoginDashboard.firstName}</b>, welcome back.</h3>
                         <hr className="style14" />
                         <div className={`yellowsection ${notificationClassName}`}>
                             <p>This is beta version, this dashboard does not work for a while, We are still on development progress. We will relase new version soon...

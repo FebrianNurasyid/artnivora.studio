@@ -13,6 +13,8 @@ namespace Artnivora.Studio.Portal.Data.Interfaces
         void SaveProduction(Production entity);
         void Save();
         IEnumerable<Production> GetProductions(string filtered);
-
+        Production GetProdById(Guid id);
+        void UpdateProduction(Production entity);
+        void DeleteAttachment(ProductionAttachment productionAttachment);
     }
 }

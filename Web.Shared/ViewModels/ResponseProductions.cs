@@ -31,5 +31,6 @@ namespace Artnivora.Studio.Portal.Web.Shared.ViewModels
         public string Id { get; set; }
         public string ProductionAttachementId { get; set; }
         public string FileName { get; set; }
+        public string FilePath { get; set; }
     }
 }

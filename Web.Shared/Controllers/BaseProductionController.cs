@@ -91,13 +91,13 @@
             {
                 FileName = file.FileName,
                 Id = productionAttachment.Id.ToString(),
-                Path = GetAbsoluteAttachmentPath(attachmentFilePath)
+                Path = GetAbsoluteAttachmentPath(attachmentFilePath, "temp")
             };
 
             return Ok(response);
         }
 
-        public virtual IActionResult GetProductionAttachmentById(Guid attachmentId)
+        public virtual IActionResult GetProductionAttachmentById(Guid attachmentId, string type)
         {
             try
             {
@@ -105,7 +105,7 @@
                 if (productionAttachment != null)
                 {
                     var net = new System.Net.WebClient();
-                    var data = net.DownloadData(GetAbsoluteAttachmentPath(productionAttachment.FilePath));
+                    var data = net.DownloadData(GetAbsoluteAttachmentPath(productionAttachment.FilePath, type));
                     var content = new MemoryStream(data);
                     var contentType = productionAttachment.ContentType;
                     return File(content, contentType);
@@ -119,38 +119,69 @@
             }
         }
 
-        public virtual IActionResult SaveProduction(Production production)
+        public virtual IActionResult SaveProduction(Production production,Guid id)
         {
             try
             {
                 var user = _userDataService.GetById(_userId.Value);
-                production.Id = Guid.NewGuid();
-                production.CreatedDate = DateTime.Now;
-                production.CreatedBy = user.Username;
-
-                // save real attachment for production task
-                var attachmentId = production.ProductionAttachments.FirstOrDefault().ProductionAttachementId;
-                var productionAttachment = _productionServices.GetProductionAttachmentById(attachmentId);
-                var realAttachment = SaveRealAttachment(GetAbsoluteAttachmentPath(productionAttachment.FilePath), production, productionAttachment);
-
-                // setup new production prop
-                List<ProductionAttachments> productionAttachments = new List<ProductionAttachments>();
-                productionAttachments.Add(new ProductionAttachments { ProductionAttachementId = realAttachment.Id });
-                Production productionToSave = new Production()
+                if (id == Guid.Empty)
                 {
-                    Id = production.Id,
-                    Title = production.Title,
-                    Category = production.Category,
-                    Themes = production.Themes,
-                    Concept = production.Concept,
-                    Status = production.Status,
-                    CreatedBy = production.CreatedBy,
-                    CreatedDate = production.CreatedDate
-                };
-                productionToSave.ProductionAttachments = productionAttachments;
+                    production.Id = Guid.NewGuid();
+                    production.CreatedDate = DateTime.Now;
+                    production.CreatedBy = user.Username;
 
-                _productionServices.SaveProduction(productionToSave);
+                    // save real attachment for production task
+                    var attachmentId = production.ProductionAttachments.FirstOrDefault().ProductionAttachementId;
+                    var productionAttachment = _productionServices.GetProductionAttachmentById(attachmentId);
+                    var realAttachment = SaveRealAttachment(GetAbsoluteAttachmentPath(productionAttachment.FilePath,"temp"), production, productionAttachment);
+                    DeleteTempAttachment(productionAttachment.Id);
 
+                    // setup new production prop
+                    List<ProductionAttachments> productionAttachments = new List<ProductionAttachments>();
+                    productionAttachments.Add(new ProductionAttachments { ProductionAttachementId = realAttachment.Id });
+                    Production productionToSave = new Production()
+                    {
+                        Id = production.Id,
+                        Title = production.Title,
+                        Category = production.Category,
+                        Themes = production.Themes,
+                        Concept = production.Concept,
+                        Status = production.Status,
+                        CreatedBy = production.CreatedBy,
+                        CreatedDate = production.CreatedDate
+                    };
+                    productionToSave.ProductionAttachments = productionAttachments;
+
+                    _productionServices.SaveProduction(productionToSave);
+                }
+                else
+                {
+                    var prod = _productionServices.GetProdById(id);
+                    prod.Title = production.Title;
+                    prod.Category = production.Category;
+                    prod.Themes = production.Themes;
+                    prod.Concept = production.Concept;
+                    prod.ModifiedBy = user?.Username;
+                    prod.ModifiedDate = DateTime.Now;
+
+                    //delete existing attachment
+                    DeletePreviousAttachment(prod);
+
+                    // save new attachment
+                    // save real attachment for production task
+                    var attachmentId = production.ProductionAttachments.FirstOrDefault().ProductionAttachementId;
+                    var productionAttachment = _productionServices.GetProductionAttachmentById(attachmentId);
+                    var realAttachment = SaveRealAttachment(GetAbsoluteAttachmentPath(productionAttachment.FilePath,"temp"), production, productionAttachment);
+                    DeleteTempAttachment(productionAttachment.Id);
+
+                    // setup new production attachment
+                    List<ProductionAttachments> productionAttachments = new List<ProductionAttachments>();
+                    productionAttachments.Add(new ProductionAttachments { ProductionAttachementId = realAttachment.Id });
+                    prod.ProductionAttachments = productionAttachments;
+
+                    _productionServices.UpdateProduction(prod);
+
+                }
                 return Ok();
             }
             catch (Exception ex)
@@ -202,13 +233,15 @@
             return realProductionAttachment;
         }
 
-        private string GetAbsoluteAttachmentPath(string attachment)
+        private string GetAbsoluteAttachmentPath(string attachment, string type)
         {
             string webRootPath = Path.Combine(Environment.GetFolderPath(
                     Environment.SpecialFolder.ApplicationData));
             string target = $"\\{_configuration["AppSettings:Target"]}";
-
-            return $"{webRootPath}{GlobalConstants.ATTACHMENT_PATH_PROD_TEMP}{target}\\{attachment}";
+            if (type == "temp")
+                return $"{webRootPath}{GlobalConstants.ATTACHMENT_PATH_PROD_TEMP}{target}\\{attachment}";
+            else
+                return $"{webRootPath}{GlobalConstants.ATTACHMENT_PATH_PROD}{target}\\{attachment}";
         }
 
         public virtual IActionResult GetProductions(string filtered)
@@ -235,11 +268,11 @@
                             Status = pd.Status,
                             CreatedBy = pd.CreatedBy,
                             CreatedDate = pd.CreatedDate,
-                            UploadedBy = "",
-                            UploadedDate = DateTime.Now,
-                            UploadedStatus = "",
-                            ModifiedBy = "",
-                            ModifiedDate = DateTime.Now,
+                            UploadedBy = pd.UploadedBy,
+                            UploadedDate = pd.UploadedDate,
+                            UploadedStatus = pd.UploadedStatus,
+                            ModifiedBy = pd.ModifiedBy,
+                            ModifiedDate = pd.ModifiedDate,
                             Attacment = new ResponseProductionAttacment
                             {
                                 Id = pd.ProductionAttachments.FirstOrDefault().Id.ToString(),
@@ -258,6 +291,76 @@
                 Logger.Error(ex, "Error in trying to get productions data.");
                 return BadRequest(new { message = "Error in getting productions data..." });
             }
+        }
+
+        public virtual IActionResult GetProdById(Guid id)
+        {
+            try
+            {
+                var foundProd = _productionServices.GetProdById(id);
+                if (foundProd != null)
+                {
+                    var response = new ResponseProduction()
+                    {
+                        Id = foundProd.Id.ToString(),
+                        Concept = foundProd.Concept,
+                        Category = foundProd.Category,
+                        Title = foundProd.Title,
+                        Themes = foundProd.Themes,
+                        Status = foundProd.Status,
+                        Attacment = new ResponseProductionAttacment
+                        {
+                            Id = foundProd.ProductionAttachments.FirstOrDefault().Id.ToString(),
+                            ProductionAttachementId = foundProd.ProductionAttachments.FirstOrDefault().ProductionAttachementId.ToString(),
+                            FileName = foundProd.ProductionAttachments.FirstOrDefault().ProductionAttachment.FileName,
+                            FilePath = foundProd.ProductionAttachments.FirstOrDefault().ProductionAttachment.FilePath,
+                        }
+                    };
+                    return Ok(response);
+                }
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Error in trying to get production by id.");
+                return BadRequest(new { message = "Error in getting production by id..." });
+            }
+        }
+
+        private void DeletePreviousAttachment(Production prod)
+        {
+            string webRootPath = Path.Combine(Environment.GetFolderPath(
+                    Environment.SpecialFolder.ApplicationData));
+
+            string target = $"\\{_configuration["AppSettings:Target"]}";
+
+            if (prod.ProductionAttachments.Any())
+            {
+                var originalPath = $"{webRootPath}{GlobalConstants.ATTACHMENT_PATH_PROD}{target}\\{prod.ProductionAttachments.FirstOrDefault().ProductionAttachment.FilePath}";
+
+                if (System.IO.File.Exists(originalPath))
+                    System.IO.File.Delete(originalPath);
+
+                _productionServices.DeleteAttachment(prod.ProductionAttachments.FirstOrDefault().ProductionAttachment);
+            }
+        }
+
+        private void DeleteTempAttachment(Guid attachmentId)
+        {
+
+            var productionAttachment = _productionServices.GetProductionAttachmentById(attachmentId);
+
+            string webRootPath = Path.Combine(Environment.GetFolderPath(
+                    Environment.SpecialFolder.ApplicationData));
+
+            string target = $"\\{_configuration["AppSettings:Target"]}";
+
+            var originalPath = $"{webRootPath}{GlobalConstants.ATTACHMENT_PATH_PROD_TEMP}{target}\\{productionAttachment.FilePath}";
+
+            if (System.IO.File.Exists(originalPath))
+                System.IO.File.Delete(originalPath);
+
+            _productionServices.DeleteAttachment(productionAttachment);
         }
     }
 }

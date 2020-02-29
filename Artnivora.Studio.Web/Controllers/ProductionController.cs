@@ -17,29 +17,29 @@
     [Route("api/[controller]")]
     public class ProductionController : BaseProductionController
     {
-        public ProductionController(ProductionServices productionServices, 
+        public ProductionController(ProductionServices productionServices,
             IHttpContextAccessor httpContextAccessor, IConfiguration configuration, IUserProfileDataService userProfileData, IUserDataService userDataService) :
-                              base(productionServices, httpContextAccessor, configuration,userProfileData,userDataService)
+                              base(productionServices, httpContextAccessor, configuration, userProfileData, userDataService)
         {
         }
 
-        
+
         [HttpPost("[action]")]
         public override async Task<IActionResult> AddProductionAttachment(IFormFile file)
         {
             return await base.AddProductionAttachment(file);
         }
-        
+
         [HttpGet("[action]/{attachmentId}")]
-        public override IActionResult GetProductionAttachmentById(Guid attachmentId)
+        public override IActionResult GetProductionAttachmentById(Guid attachmentId, [FromQuery] string type)
         {
-            return base.GetProductionAttachmentById(attachmentId);
+            return base.GetProductionAttachmentById(attachmentId, type);
         }
 
         [HttpPost("[action]")]
-        public override IActionResult SaveProduction([FromBody]Production production)
+        public override IActionResult SaveProduction([FromBody]Production production, [FromQuery] Guid id)
         {
-            return base.SaveProduction(production);
+            return base.SaveProduction(production, id);
         }
 
         [HttpGet("[action]/{filtered}")]
@@ -48,5 +48,10 @@
             return base.GetProductions(filtered);
         }
 
+        [HttpGet("[action]/{id}")]
+        public override IActionResult GetProdById(Guid id)
+        {
+            return base.GetProdById(id);
+        }
     }
 }

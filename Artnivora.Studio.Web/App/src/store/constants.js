@@ -38,3 +38,9 @@ export const uploadAttachmentProductionType = "UPLOAD_ATTACHMENT_PRODUCTION";
 export const downloadAttachmentProductionType = "UPLOAD_ATTACHMENT_PRODUCTION";
 
 export const fetchProductionsType = "GET_PRODUCTIONS";
+
+export const fetchProdcutionToEditType = 'FETCH_PROD_TO_EDIT';
+
+export const clearProdToEditType = 'CLEAR_PROD_TO_EDIT';
+
+export const clearAttachmentType = 'CLEAR_PROD_ATTACHMENT';

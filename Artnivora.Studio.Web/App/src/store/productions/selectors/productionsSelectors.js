@@ -4,6 +4,8 @@ export const productionsStateSelector = state => state.productions;
 
 export const productionsSelector = state => productionsStateSelector(state).productions;
 
+export const prodToEditSelector = state => productionsStateSelector(state).prodToEdit;
+
 export const filteredProductionsSelector = createSelector(
     productionsSelector,
     (productions) => {

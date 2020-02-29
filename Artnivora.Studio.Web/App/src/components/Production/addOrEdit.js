@@ -2,8 +2,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import clearUserWithIdAction from '../../store/users/actions/clearUserWithId';
-import fetchUserWithIdAction from '../../store/users/actions/fetchUserWithId';
+import clearProdWithIdAction from '../../store/productions/actions/clearProdWithId';
+import clearAttachmentAction from '../../store/productions/actions/clearAttachment';
+import fetchUserWithIdAction from '../../store/productions/actions/fetchProductionWithId';
 import registerUserAction from '../../store/users/actions/registerUser';
 import { userToEditSelector } from '../../store/users/selectors/userSelectors';
 import { routingLocationSelector } from 'hvb-shared-frontend/src/store/selectors/generalSelector';
@@ -15,6 +16,7 @@ import { fileFormatAllowed, fileSizeLimit } from '../../constants/fileConstants'
 import fetchProductionAttachmentWithId from '../../store/productions/actions/fetchProductionAttachmentWithId';
 import { saveProduction } from '../../store/productions/actions/saveProduction';
 import { toast } from 'react-toastify';
+import { prodToEditSelector } from '../../store/productions/selectors/productionsSelectors';
 
 class AddOrEdit extends Component {
 
@@ -22,6 +24,7 @@ class AddOrEdit extends Component {
         super(props);
         this.state = {
             fields: fromJS({
+                id: '',
                 title: '',
                 category: 'Logo',
                 themes: 'Cartoon',
@@ -46,23 +49,33 @@ class AddOrEdit extends Component {
         const {
             routingLocation
         } = this.props;
-        this.props.clearUserWithId();
+        this.props.clearProdWithId();
         if (routingLocation && routingLocation.query) {
             const userId = routingLocation.query['id'];
             if (userId) {
-                this.props.fetchUserWithId(userId);
+                this.props.fetchProdWithId(userId);
             }
         }
     }
 
     componentDidUpdate(prevProps) {
-        const { userToEdit } = this.props;
-        if (userToEdit && !prevProps.userToEdit) {
+        const { prodToEdit } = this.props;
+        if (prodToEdit && !prevProps.prodToEdit) {
             this.setState({
                 fields: fromJS({
-                    divisionname: '',
+                    id: prodToEdit.id,
+                    title: prodToEdit.title,
+                    category: prodToEdit.category,
+                    themes: prodToEdit.themes,
+                    concept: prodToEdit.concept,
+                    status: prodToEdit.status,
                 }),
                 errors: fromJS({}),
+                attachment: fromJS({
+                    id: prodToEdit.attacment.productionAttachementId,
+                    filename: prodToEdit.attacment.fileName,
+                    filepath: prodToEdit.attacment.filePath,
+                }),
             })
         }
         const { attachmentProduction } = this.props;
@@ -100,7 +113,11 @@ class AddOrEdit extends Component {
             errors: fromJS({}),
         });
 
-        const unfilledValues = fields.filter((value) => {
+        const nonMandatoryFields = fields.filter((v, f) => {
+            return (f !== 'id')
+        })
+
+        const unfilledValues = nonMandatoryFields.filter((value) => {
             return value.trim() === '';
         });
 
@@ -118,7 +135,8 @@ class AddOrEdit extends Component {
                 });
             }
             else {
-                this.props.saveProduction(fields.toJS(), attachment.toJS());  
+                this.props.saveProduction(fields.toJS(), attachment.toJS());
+                this.props.clearAttachment();
                 this.props.history.push('/production');
             }
         } else {
@@ -162,13 +180,19 @@ class AddOrEdit extends Component {
     }
 
     handleActionDownload = (e) => {
-        const { attachmentProduction } = this.props;
-        this.props.fetchProductionAttachmentWithId(attachmentProduction);
         e.preventDefault();
+        const { attachmentProduction } = this.props;
+        if (!attachmentProduction) {
+            const { attachment } = this.state;
+            console.log(attachment);
+            this.props.fetchProductionAttachmentWithId(attachment.toJS(),'real');
+        }
+        else
+            this.props.fetchProductionAttachmentWithId(attachmentProduction,'temp');
     }
 
     render() {
-        const editMode = this.props.userToEdit != null;
+        const editMode = this.props.prodToEdit != null;
         const {
             fields,
             errors,
@@ -178,7 +202,7 @@ class AddOrEdit extends Component {
         return (
             <span>
                 {!editMode && <h3> New Production </h3>}
-                {editMode && <h2> Edit Production </h2>}
+                {editMode && <h3> Edit Production </h3>}
                 <hr className="style12" />
                 <div className="form-group row required">
                     <label className="col-sm-2 col-form-label control-label" htmlFor="title_field">Title</label>
@@ -267,17 +291,18 @@ class AddOrEdit extends Component {
 export default connect(
     (state) => {
         return {
-            userToEdit: userToEditSelector(state),
             routingLocation: routingLocationSelector(state),
-            attachmentProduction: state.productions.attachmentProduction
+            attachmentProduction: state.productions.attachmentProduction,
+            prodToEdit: prodToEditSelector(state),
         }
     },
     dispatch => bindActionCreators({
         registerUser: registerUserAction,
-        fetchUserWithId: fetchUserWithIdAction,
-        clearUserWithId: clearUserWithIdAction,
+        clearProdWithId: clearProdWithIdAction,
         attachmentProductionAction,
         fetchProductionAttachmentWithId,
         saveProduction,
+        fetchProdWithId: fetchUserWithIdAction,
+        clearAttachment: clearAttachmentAction,
     }, dispatch),
 )(AddOrEdit);

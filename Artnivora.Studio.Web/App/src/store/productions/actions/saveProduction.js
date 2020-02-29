@@ -3,9 +3,9 @@ import { toast } from 'react-toastify';
 
 export const saveProduction = (prod, attachment) => async () => {
     const tokenVar = sessionStorage.getItem(tokenKey);
-    const url = `/api/Production/saveproduction`;    
+    const url = `/api/Production/saveproduction/?id=${prod.id}`;
     const production =
-    {
+    {        
         "Title": prod.title,
         "Category": prod.category,
         "Themes": prod.themes,
@@ -16,7 +16,8 @@ export const saveProduction = (prod, attachment) => async () => {
                 "ProductionAttachementId": attachment.id
             }
         ]
-    };   
+    };
+    debugger;
     const result = await fetch(url, {
         method: 'POST',
         headers: {

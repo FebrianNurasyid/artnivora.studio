@@ -48,9 +48,25 @@
         }
 
         public void SaveProduction(Production production)
-        {           
+        {
             _productionDataService.SaveProduction(production);
             _productionDataService.Save();
+        }
+
+        public List<string> UpdateProduction(Production entity)
+        {
+            List<string> errors = new List<string>();
+            try
+            {
+                _productionDataService.UpdateProduction(entity);
+                _productionDataService.Save();
+            }
+            catch (Exception e)
+            {
+                errors.Add($"Exception while update Production { e.Message }");
+            }
+
+            return errors;
         }
 
         /// <summary>
@@ -61,6 +77,22 @@
         public IEnumerable<Production> GetProductions(string filtered)
         {
             return _productionDataService.GetProductions(filtered);
+        }
+
+        /// <summary>
+        /// Get productions by filter id
+        /// </summary>
+        /// <param name="id">The status production identifier.</param>
+        /// <returns></returns>
+        public Production GetProdById(Guid id)
+        {
+            return _productionDataService.GetProdById(id);
+        }
+
+        public void DeleteAttachment(ProductionAttachment productionAttachment)
+        {
+            _productionDataService.DeleteAttachment(productionAttachment);
+            _productionDataService.Save();
         }
 
         #region IDisposable Support

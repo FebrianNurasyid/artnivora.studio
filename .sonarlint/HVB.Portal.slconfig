@@ -1,0 +1,12 @@
+{
+  "ServerUri": "https://ds-sonarqube-lab.azurewebsites.net",
+  "Organization": null,
+  "ProjectKey": "Hervormde.Vrouwenbond",
+  "ProjectName": "Hervormde Vrouwenbond",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AW2qMEgYjJz-HGX9ofoC",
+      "ProfileTimestamp": "2019-10-08T09:05:53+02:00"
+    }
+  }
+}
