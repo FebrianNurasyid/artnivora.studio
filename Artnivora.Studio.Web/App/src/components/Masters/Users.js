@@ -7,7 +7,7 @@ import searchUsersAction from '../../store/users/actions/searchUsers';
 import { filteredUsersSelector } from '../../store/users/selectors/userSelectors';
 import styles from './Styles.css';
 import TextInputField from 'hvb-shared-frontend/src/components/TextInputField/TextInputField';
-
+import { formatDateForMessage } from 'hvb-shared-frontend/src/helpers/messagesHelper';
 
 class Users extends Component {
     componentDidMount() {
@@ -18,7 +18,7 @@ class Users extends Component {
         return (
             <div>
                 <div>
-                    <h3> Search the users here .... </h3>
+                    <h3> Search the users here ... </h3>
                     <TextInputField
                         className={styles.filterInput}
                         key={'search'}
@@ -28,8 +28,10 @@ class Users extends Component {
                         }}
                     />
                 </div>
-                <h1>All the users</h1>
-                <p>This component demonstrates fetching data from the database and working with URL parameters.</p>
+                <br/>
+                <div className="btn-add">
+                    <Link className="hvb-button btn btn-primary" to={`/masters/users/register`}>Add New</Link>
+                </div>
                 {renderDataTable(this.props)}
             </div>
         );
@@ -38,7 +40,7 @@ class Users extends Component {
 
 
 function renderDataTable(props) {
-    return (
+    return (        
         <table className='table table-striped'>
             <thead className='thead-dark'>
                 <tr>
@@ -55,8 +57,10 @@ function renderDataTable(props) {
                         <td>{user.id}</td>
                         <td>{user.username}</td>
                         <td>{user.email}</td>
-                        <td>{user.creationDate}</td>
-                        <td><Link to={`/users/create?id=${user.id}`}>Edit</Link></td>
+                        <td>{formatDateForMessage(user.creationDate)}</td>
+                        <td>
+                            {/*<Link to={`/users/create?id=${user.id}`}>Edit</Link>*/}
+                        </td>
                     </tr>
                 )}
             </tbody>

@@ -5,6 +5,7 @@ namespace Artnivora.Studio.Portal.Web.Controllers
     using Artnivora.Studio.Portal.Web.Shared.Controllers;
     using Artnivora.Studio.Portal.Web.Shared.ViewModels;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using System;
 
@@ -16,12 +17,13 @@ namespace Artnivora.Studio.Portal.Web.Controllers
                               ParticipantProfileService participantProfileService,
                               UserService userService,
                               UserRoleService userRoleService,
-                              EmailService emailService) :
+                              EmailService emailService, IHttpContextAccessor httpContextAccessor) :
                 base(volunteerProfileService,
                      participantProfileService,
                      userService,
                      userRoleService,
-                     emailService)
+                     emailService,
+                     httpContextAccessor)
         {
         }
 
@@ -38,8 +40,7 @@ namespace Artnivora.Studio.Portal.Web.Controllers
         {
             return base.ById(id);
         }
-
-        [AllowAnonymous]
+        
         [HttpPost("[action]")]
         public override IActionResult Register([FromBody] UserWithUserProfile userWithUserProfile, [FromQuery] string userroletype)
         {
@@ -59,12 +60,11 @@ namespace Artnivora.Studio.Portal.Web.Controllers
         {
             return base.ForgotPassword(email);
         }
-
-        [AllowAnonymous]
+        
         [HttpPost("[action]")]
-        public override IActionResult ConfigurePassword([FromBody] User user, [FromQuery] bool isRecoveryPassword)
+        public override IActionResult ConfigurePassword([FromQuery] string password)
         {
-            return base.ConfigurePassword(user, isRecoveryPassword);
+            return base.ConfigurePassword(password);
         }
     }
 }

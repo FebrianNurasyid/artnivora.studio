@@ -77,7 +77,7 @@ class Login extends Component {
                     </div>
 
                     <div className="form-group padarea">
-                        <h2> Login To Your Account </h2>
+                        <h2> Please Login . . .  </h2>
                         <hr className="style14" />
                         <div className="form-group row col-md-6">
                             <label htmlFor="username_field">Username</label>
@@ -114,7 +114,7 @@ class Login extends Component {
                             onClick={this.handleSubmit}
                         >Login</HVBButton>
                         <hr />
-                        <ForgotPassword initialModalState={false} />
+                    {/*<ForgotPassword initialModalState={false} />*/}
                     </div>
                 </div>
         );

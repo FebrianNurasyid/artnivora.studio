@@ -12,25 +12,38 @@ import { MdAttachFile } from "react-icons/md";
 import fetchProductionsAction from '../../store/productions/actions/fetchProductions';
 import { formatDateForMessage } from 'hvb-shared-frontend/src/helpers/messagesHelper';
 import isEqual from 'react-fast-compare';
+import fetchProductionAttachmentWithId from '../../store/productions/actions/fetchProductionAttachmentWithId';
 
 class ProductionTask extends Component {
     constructor(props) {
         super(props)
         this.state = {
-        }
+        };  
+        this.handleActionDownload = this.handleActionDownload.bind(this);
     }
 
     componentDidMount() {
-        this.props.fetchProductions("Packaging");
+        this.props.fetchProductions("Production");
     }
 
     componentDidUpdate(prevProps) {
         const { production } = this.props;        
         if (!isEqual(production, prevProps.production)) {
-            this.props.fetchProductions("Packaging");
+            this.props.fetchProductions("Production");
         }
 
-    }   
+    }      
+
+    handleActionDownload = (e) => {
+        e.preventDefault();
+        const attachment =
+        {
+            "id": e.target.id,
+            "filename": e.target.innerText,
+            "filepath": '',
+        }        
+        this.props.fetchProductionAttachmentWithId(attachment, 'real');
+    }
 
     render() {
         return (
@@ -48,13 +61,13 @@ class ProductionTask extends Component {
                     />
                 </div>
                 <br />
-                {renderDataTable(this.props)}
+                {renderDataTable(this.props, this.handleActionDownload)}
             </div>
         );
     }
 }
 
-function renderDataTable(props) {
+function renderDataTable(props,handleDownload) {
     return (
         <div>
             <div className="btn-add">
@@ -84,9 +97,9 @@ function renderDataTable(props) {
                             <td>{prod.concept}</td>
                             <td>{prod.createdBy}</td>
                             <td>{formatDateForMessage(prod.createdDate)}</td>
-                            <td><a href="#">{prod.attacment.fileName}</a></td>
+                            <td><a id={prod.attacment.productionAttachementId} onClick={handleDownload} href="#">{prod.attacment.fileName}</a></td>
                             <td>{prod.status}</td>
-                            <td><Link to={`/production/addoredit?id=${prod.id}`}>Edit</Link></td>
+                            <td><Link to={`/production/addoredit?id=${prod.id}&task=Production`}>Edit</Link></td>
                         </tr>
                     )}
                 </tbody>
@@ -106,5 +119,6 @@ export default connect(
         fetchUsers: fetchUsersAction,
         searchUsers: searchUsersAction,
         fetchProductions: fetchProductionsAction,
+        fetchProductionAttachmentWithId,
     }, dispatch)
 )(ProductionTask);

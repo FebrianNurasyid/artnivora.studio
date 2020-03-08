@@ -66,7 +66,7 @@
         public IEnumerable<Production> GetProductions(string filtered)
         {
             return context.Production.Include(x => x.ProductionAttachments).ThenInclude(y => y.ProductionAttachment)
-                .Where(x => x.Status == filtered).ToList();
+                .Where(x => x.Status == filtered).OrderByDescending(x=>x.CreatedBy).Take(100).ToList();
         }
 
         public Production GetProdById(Guid id)

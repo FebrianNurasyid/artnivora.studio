@@ -17,7 +17,7 @@ import { saveProduction } from '../../store/productions/actions/saveProduction';
 import { toast } from 'react-toastify';
 import { prodToEditSelector } from '../../store/productions/selectors/productionsSelectors';
 
-class AddOrEdit extends Component {
+class EditKeywording extends Component {
 
     constructor(props) {
         super(props);
@@ -25,10 +25,10 @@ class AddOrEdit extends Component {
             fields: fromJS({
                 id: '',
                 title: '',
-                category: 'Logo',
-                themes: 'Cartoon',
+                category: '',
+                themes: '',
                 concept: '',
-                status: 'Packaging',
+                status: '',
                 remark: '',
                 uploadedstatus: '',
             }),
@@ -37,13 +37,14 @@ class AddOrEdit extends Component {
                 filename: '',
                 filepath: '',
             }),
-            errors: fromJS({}),            
+            errors: fromJS({}),
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onAttachmentChangeHandler = this.onAttachmentChangeHandler.bind(this);
-        this.handleActionDownload = this.handleActionDownload.bind(this);        
+        this.handleActionDownload = this.handleActionDownload.bind(this);
+        this.handleRevise = this.handleRevise.bind(this);
     }
 
     componentDidMount() {
@@ -51,7 +52,13 @@ class AddOrEdit extends Component {
             routingLocation
         } = this.props;
         this.props.clearProdWithId();
-        if (routingLocation && routingLocation.query) {            
+        if (routingLocation && routingLocation.query) {
+            const task = routingLocation.query['task'];
+            if (task) {
+                this.setState({
+                    taskpage: this.state.taskpage.set('task', task),
+                });
+            }
             const userId = routingLocation.query['id'];
             if (userId) {
                 this.props.fetchProdWithId(userId);
@@ -70,7 +77,7 @@ class AddOrEdit extends Component {
                     themes: prodToEdit.themes,
                     concept: prodToEdit.concept,
                     status: prodToEdit.status,
-                    remark: '',
+                    remark: prodToEdit.remark,
                     uploadedstatus: '',
                 }),
                 errors: fromJS({}),
@@ -108,14 +115,21 @@ class AddOrEdit extends Component {
             fields: this.state.fields.set(name, value),
         });
     }
-    
-    handleSubmit() {
-        const { attachment } = this.state;
 
+    handleRevise() {       
+        this.handleSave('Packaging');
+    }
+
+    handleSubmit() {        
+        this.handleSave('Uploading');
+    }
+
+    handleSave(status) {
+        const { attachment } = this.state;
         var oFfields = this.state.fields;
         var fields = oFfields.map((value, field) => {
             if (field === 'status') {
-                var regexValue = 'Packaging'
+                var regexValue = status
                 return regexValue;
             }
             else {
@@ -123,7 +137,7 @@ class AddOrEdit extends Component {
             }
         });
         this.setState({ fields: fields });
-
+        
         this.setState({
             errors: fromJS({}),
         });
@@ -152,7 +166,7 @@ class AddOrEdit extends Component {
             else {
                 this.props.saveProduction(fields.toJS(), attachment.toJS());
                 this.props.clearAttachment();
-                this.props.history.push('/production');
+                this.props.history.push('/production/keywording');
             }
         } else {
             let errors = fromJS({});
@@ -217,8 +231,7 @@ class AddOrEdit extends Component {
 
         return (
             <span>
-                {!editMode && <h3> New Production </h3>}
-                {editMode && <h3> Edit Production </h3>}
+                {editMode && <h3> Edit Keywording </h3>}
                 <hr className="style12" />
                 <div className="form-group row required">
                     <label className="col-sm-2 col-form-label control-label" htmlFor="title_field">Title</label>
@@ -252,7 +265,7 @@ class AddOrEdit extends Component {
                         </select>
                     </div>
 
-                    <label className="col-sm-2 col-form-label control-label" htmlFor="divisionname_field">Concept</label>
+                    <label className="col-sm-2 col-form-label control-label" htmlFor="concept_field">Concept</label>
                     <div className="col-md-4">
                         <TextInputField
                             field={'concept'}
@@ -262,7 +275,17 @@ class AddOrEdit extends Component {
                         />
                     </div>
                 </div>
-                
+                <div className="form-group row required">
+                    <label className="col-sm-2 col-form-label control-label" htmlFor="concept_field">Remark</label>
+                    <div className="col-md-4">
+                        <TextInputField
+                            field={'remark'}
+                            value={fields.get('remark')}
+                            onChange={(field, value) => this.handleChange(field, value)}
+                            hasError={errors.has('remark')}
+                        />
+                    </div>
+                </div>
                 <div className="form-group row required">
                     <label className="col-sm-2 col-form-label control-label" htmlFor="divisionname_field">Attachment File</label>
                     <div className="col-md-4">
@@ -292,7 +315,12 @@ class AddOrEdit extends Component {
                             type="button"
                             onClick={this.handleSubmit}
                         >Submit</HVBButton>
-                       
+                        <HVBButton
+                            className="btn btn-primary"
+                            type="button"
+                            extraClassName="btn-cancel"
+                            onClick={this.handleRevise}
+                        >Revise</HVBButton>
                         <HVBButton
                             className="btn btn-primary"
                             extraClassName="btn-cancel"
@@ -324,4 +352,4 @@ export default connect(
         fetchProdWithId: fetchUserWithIdAction,
         clearAttachment: clearAttachmentAction,
     }, dispatch),
-)(AddOrEdit);
+)(EditKeywording);

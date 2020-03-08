@@ -1,62 +1,54 @@
-﻿import { toast } from 'react-toastify';
+﻿import { tokenKey } from 'hvb-shared-frontend/src/store/constants';
+import { toast } from 'react-toastify';
 import { encryptPassword } from 'hvb-shared-frontend/src/helpers/encryptionHelper';
 import {
     updateUserActivationState
 } from '../../constants';
 
-export default (entity, userroletype) => async (dispatch) => {
-    const url = `/api/User/Register`+`/?userroletype=`+userroletype;
-    const shouldEncryptPassword = entity.password && entity.password !== '' && entity.password.length > 1;
+export default (entity, userroletype) => async (dispatch) => {    
+    const tokenVar = sessionStorage.getItem(tokenKey);
+    const url = `/api/User/Register`+`/?userroletype=`+userroletype;    
     const userEntity = {
-        'Username': entity.email,
+        'Username': entity.username,
         'Email': entity.email,
-        'Password': shouldEncryptPassword ? encryptPassword(entity.password) : '',
+        'Password': encryptPassword(entity.password),
         'Token': '',
-    };
-
+    };    
     const userProfileEntity = {
-        'Salutation': entity.salutation,
+        'Salutation': 'tes',
         'FirstName': entity.firstname,
         'LastName': entity.lastname,
-        'Insertion': entity.insertion,
-        'MaidenName': entity.maidenname,
-        'Birthdate': entity.birthdate,
-        'MobileNumber': entity.phonenumbermobile,
+        'Insertion': 'tes',
+        'MaidenName': 'tes',        
+        'MobileNumber': '0',
+        'Birthdate': '1990-01-01',
         'PhoneNumber': entity.phonenumber,
         'ContactAddress': {
-            'Street': entity.street,
-            'HouseNumber': entity.housenumber,
-            'Zipcode': entity.zipcode,
-            'City': entity.city,
-            'Country': 'Nederland'
+            'Street': 'tes',
+            'HouseNumber': 'tes',
+            'Zipcode': 'tes',
+            'City': 'tes',
+            'Country': 'Indonesia'
         }
-    }
-
+    }    
     const response = await fetch(url, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + tokenVar
         },
         body: JSON.stringify({
             User: userEntity,
             UserProfile: userProfileEntity,
         })
-    });
-    const result = await response.json();
-    console.log('response! ' + response);
-    console.log("result " + result);
-    if (response.ok) {
-        // Set user as activation state to null in the local state, because it has not passed or failed yet
-        dispatch({ type: updateUserActivationState, userActivated: null });
-        window.location.href = "/users/thankyou";
+    });    
+    if (response.ok) {            
         toast.success("Registration succesfull!", {
             position: toast.POSITION.TOP_RIGHT
         });
-    } else {
-        // I use the errors returned from the back-end to show a message
-        toast.error("Username is already in use!", {
+    } else {        
+        toast.error("Registration Failed, Please contact administrator!", {
             position: toast.POSITION.TOP_RIGHT
         });
-    }
-    console.log('result', result);
+    }    
 };

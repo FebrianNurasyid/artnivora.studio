@@ -23,6 +23,7 @@ namespace Artnivora.Studio.Portal.Web.Shared.ViewModels
         public DateTime? UploadedDate { get; set; }
         public string UploadedBy { get; set; }
         public string UploadedStatus { get; set; }
+        public string Remark { get; set; }
         public ResponseProductionAttacment Attacment { get; set; }
     }
 

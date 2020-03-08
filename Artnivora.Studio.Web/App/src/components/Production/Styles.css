@@ -179,3 +179,8 @@
     text-decoration: none !important;
     margin-top: 0px !important;
 }
+
+.texarea-option {
+    height: 150px;
+    width: 100%;
+}

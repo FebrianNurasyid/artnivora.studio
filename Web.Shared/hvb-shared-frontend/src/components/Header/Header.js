@@ -15,7 +15,7 @@ class Header extends React.Component {
         super(props);
 
         this.toggle = this.toggle.bind(this);
-        this.toggleDropDown = this.toggleDropDown.bind(this);
+        this.toggleDropDown = this.toggleDropDown.bind(this);        
 
         this.state = {
             isOpen: false,
@@ -67,15 +67,16 @@ class Header extends React.Component {
                                             </DropdownToggle>
                                             <DropdownMenu
                                                 right
-                                            >
-                                                <DropdownItem>Some Action</DropdownItem>
-                                                <DropdownItem>Some other action</DropdownItem>
+                                            >                                                
                                                 <DropdownItem as={"button"} onClick={() => this.props.logOut()}>
                                                     Log out
                                                 </DropdownItem>
+                                                <DropdownItem as={"button"} >
+                                                    <Link to="/configurepassword">Configure Password</Link>
+                                                </DropdownItem>                                                
                                             </DropdownMenu>
                                         </Dropdown>
-                                    </NavItem>      
+                                    </NavItem>
                                 )}
                                 {!userLoggedIn && (<NavItem>
                                     <NavLink

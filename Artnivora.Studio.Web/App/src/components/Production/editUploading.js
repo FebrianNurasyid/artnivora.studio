@@ -17,7 +17,7 @@ import { saveProduction } from '../../store/productions/actions/saveProduction';
 import { toast } from 'react-toastify';
 import { prodToEditSelector } from '../../store/productions/selectors/productionsSelectors';
 
-class AddOrEdit extends Component {
+class EditUploading extends Component {
 
     constructor(props) {
         super(props);
@@ -25,10 +25,10 @@ class AddOrEdit extends Component {
             fields: fromJS({
                 id: '',
                 title: '',
-                category: 'Logo',
-                themes: 'Cartoon',
+                category: '',
+                themes: '',
                 concept: '',
-                status: 'Packaging',
+                status: '',
                 remark: '',
                 uploadedstatus: '',
             }),
@@ -37,13 +37,14 @@ class AddOrEdit extends Component {
                 filename: '',
                 filepath: '',
             }),
-            errors: fromJS({}),            
+            errors: fromJS({}),
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onAttachmentChangeHandler = this.onAttachmentChangeHandler.bind(this);
-        this.handleActionDownload = this.handleActionDownload.bind(this);        
+        this.handleActionDownload = this.handleActionDownload.bind(this);
+        this.handleRevise = this.handleRevise.bind(this);
     }
 
     componentDidMount() {
@@ -51,7 +52,13 @@ class AddOrEdit extends Component {
             routingLocation
         } = this.props;
         this.props.clearProdWithId();
-        if (routingLocation && routingLocation.query) {            
+        if (routingLocation && routingLocation.query) {
+            const task = routingLocation.query['task'];
+            if (task) {
+                this.setState({
+                    taskpage: this.state.taskpage.set('task', task),
+                });
+            }
             const userId = routingLocation.query['id'];
             if (userId) {
                 this.props.fetchProdWithId(userId);
@@ -69,8 +76,8 @@ class AddOrEdit extends Component {
                     category: prodToEdit.category,
                     themes: prodToEdit.themes,
                     concept: prodToEdit.concept,
-                    status: prodToEdit.status,
-                    remark: '',
+                    status: '',
+                    remark: prodToEdit.remark,
                     uploadedstatus: '',
                 }),
                 errors: fromJS({}),
@@ -108,14 +115,37 @@ class AddOrEdit extends Component {
             fields: this.state.fields.set(name, value),
         });
     }
-    
-    handleSubmit() {
-        const { attachment } = this.state;
 
+    handleRevise() {
+        const { fields } = this.state;
+        var reviseTo = fields.get('status');
+        if (reviseTo === '')
+            toast.error("Please select target revise", {
+                position: toast.POSITION.TOP_CENTER
+            });            
+        else {
+            this.handleSave(reviseTo);
+        }            
+    }
+
+    handleSubmit() {
+        const { fields } = this.state;
+        var uploadStat = fields.get('uploadedstatus');
+        if (uploadStat === '')
+            toast.error("Please select status upload", {
+                position: toast.POSITION.TOP_CENTER
+            });            
+        else {
+            this.handleSave('Archived');
+        }              
+    }
+
+    handleSave(status) {
+        const { attachment } = this.state;
         var oFfields = this.state.fields;
         var fields = oFfields.map((value, field) => {
             if (field === 'status') {
-                var regexValue = 'Packaging'
+                var regexValue = status
                 return regexValue;
             }
             else {
@@ -129,7 +159,7 @@ class AddOrEdit extends Component {
         });
 
         const nonMandatoryFields = fields.filter((v, f) => {
-            return (f !== 'id' && f !== 'uploadedstatus' && f !== 'remark')
+            return (f !== 'id' && f !== 'uploadedstatus' && f !== 'remark' )
         })
 
         const unfilledValues = nonMandatoryFields.filter((value) => {
@@ -152,7 +182,7 @@ class AddOrEdit extends Component {
             else {
                 this.props.saveProduction(fields.toJS(), attachment.toJS());
                 this.props.clearAttachment();
-                this.props.history.push('/production');
+                this.props.history.push('/production/uploading');
             }
         } else {
             let errors = fromJS({});
@@ -217,8 +247,7 @@ class AddOrEdit extends Component {
 
         return (
             <span>
-                {!editMode && <h3> New Production </h3>}
-                {editMode && <h3> Edit Production </h3>}
+                {editMode && <h3> Edit Uploading </h3>}
                 <hr className="style12" />
                 <div className="form-group row required">
                     <label className="col-sm-2 col-form-label control-label" htmlFor="title_field">Title</label>
@@ -252,7 +281,7 @@ class AddOrEdit extends Component {
                         </select>
                     </div>
 
-                    <label className="col-sm-2 col-form-label control-label" htmlFor="divisionname_field">Concept</label>
+                    <label className="col-sm-2 col-form-label control-label" htmlFor="concept_field">Concept</label>
                     <div className="col-md-4">
                         <TextInputField
                             field={'concept'}
@@ -262,7 +291,40 @@ class AddOrEdit extends Component {
                         />
                     </div>
                 </div>
-                
+                <div className="form-group row">
+                    <label className="col-sm-2 col-form-label control-label" htmlFor="concept_field">Remark</label>
+                    <div className="col-md-4">
+                        <TextInputField
+                            field={'remark'}
+                            value={fields.get('remark')}
+                            onChange={(field, value) => this.handleChange(field, value)}
+                            hasError={errors.has('remark')}
+                        />
+                    </div>
+                    <label className="col-sm-2 col-form-label control-label" htmlFor="concept_field">Revise To</label>
+                    <div className="col-md-4">
+                        <select name={'status'} value={fields.get('status')}
+                            onChange={(value) => this.handleDropdownChange(value)}
+                            className="col-sm-12 col-form-label control-label">
+                            <option value=""></option>
+                            <option value="Production">Production</option>
+                            <option value="Packaging">Packaging</option>
+                            <option value="Keywording">Keywording</option>
+                        </select>
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label className="col-sm-2 col-form-label control-label" htmlFor="themes_field">Status Upload</label>
+                    <div className="col-md-4">
+                        <select name={'uploadedstatus'} value={fields.get('uploadedstatus')}
+                            onChange={(value) => this.handleDropdownChange(value)}
+                            className="col-sm-12 col-form-label control-label">
+                            <option value=""></option>
+                            <option value="Accepted">Accepted</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                </div>
                 <div className="form-group row required">
                     <label className="col-sm-2 col-form-label control-label" htmlFor="divisionname_field">Attachment File</label>
                     <div className="col-md-4">
@@ -291,8 +353,13 @@ class AddOrEdit extends Component {
                             className="btn btn-primary"
                             type="button"
                             onClick={this.handleSubmit}
-                        >Submit</HVBButton>
-                       
+                        >Save</HVBButton>
+                        <HVBButton
+                            className="btn btn-primary"
+                            type="button"
+                            extraClassName="btn-cancel"
+                            onClick={this.handleRevise}
+                        >Revise</HVBButton>
                         <HVBButton
                             className="btn btn-primary"
                             extraClassName="btn-cancel"
@@ -324,4 +391,4 @@ export default connect(
         fetchProdWithId: fetchUserWithIdAction,
         clearAttachment: clearAttachmentAction,
     }, dispatch),
-)(AddOrEdit);
+)(EditUploading);

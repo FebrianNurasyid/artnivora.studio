@@ -163,16 +163,30 @@
                     prod.Concept = production.Concept;
                     prod.ModifiedBy = user?.Username;
                     prod.ModifiedDate = DateTime.Now;
+                    prod.Status = production.Status;
+                    prod.Remark = production.Remark;
 
-                    //delete existing attachment
-                    DeletePreviousAttachment(prod);
+                    if (!string.IsNullOrEmpty(production.UploadedStatus))
+                    {
+                        prod.UploadedStatus = production.UploadedStatus;
+                        prod.UploadedDate = DateTime.Now;
+                        prod.UploadedBy = user?.Username;
+                    }
 
-                    // save new attachment
-                    // save real attachment for production task
-                    var attachmentId = production.ProductionAttachments.FirstOrDefault().ProductionAttachementId;
-                    var productionAttachment = _productionServices.GetProductionAttachmentById(attachmentId);
-                    var realAttachment = SaveRealAttachment(GetAbsoluteAttachmentPath(productionAttachment.FilePath,"temp"), production, productionAttachment);
-                    DeleteTempAttachment(productionAttachment.Id);
+                    ProductionAttachment realAttachment = new ProductionAttachment();
+                    if (prod.ProductionAttachments.FirstOrDefault().ProductionAttachment.Id != production.ProductionAttachments.FirstOrDefault().ProductionAttachementId)
+                    {
+                        //delete Previous attachment
+                        DeletePreviousAttachment(prod);
+                        // save real attachment for production task
+                        var attachmentId = production.ProductionAttachments.FirstOrDefault().ProductionAttachementId;
+                        var productionAttachment = _productionServices.GetProductionAttachmentById(attachmentId);
+                        realAttachment = SaveRealAttachment(GetAbsoluteAttachmentPath(productionAttachment.FilePath, "temp"), production, productionAttachment);
+                        //delete Temp attachment
+                        DeleteTempAttachment(productionAttachment.Id);
+                    }
+                    else
+                        realAttachment.Id = production.ProductionAttachments.FirstOrDefault().ProductionAttachementId;
 
                     // setup new production attachment
                     List<ProductionAttachments> productionAttachments = new List<ProductionAttachments>();
@@ -273,6 +287,7 @@
                             UploadedStatus = pd.UploadedStatus,
                             ModifiedBy = pd.ModifiedBy,
                             ModifiedDate = pd.ModifiedDate,
+                            Remark = pd.Remark,
                             Attacment = new ResponseProductionAttacment
                             {
                                 Id = pd.ProductionAttachments.FirstOrDefault().Id.ToString(),
@@ -308,6 +323,8 @@
                         Title = foundProd.Title,
                         Themes = foundProd.Themes,
                         Status = foundProd.Status,
+                        Remark = foundProd.Remark,
+                        UploadedStatus = foundProd.UploadedStatus,
                         Attacment = new ResponseProductionAttacment
                         {
                             Id = foundProd.ProductionAttachments.FirstOrDefault().Id.ToString(),
@@ -347,18 +364,18 @@
 
         private void DeleteTempAttachment(Guid attachmentId)
         {
-
             var productionAttachment = _productionServices.GetProductionAttachmentById(attachmentId);
 
             string webRootPath = Path.Combine(Environment.GetFolderPath(
                     Environment.SpecialFolder.ApplicationData));
+            string target = $"\\{_configuration["AppSettings:Target"]}";                        
 
-            string target = $"\\{_configuration["AppSettings:Target"]}";
+            DirectoryInfo directoryInfo = new DirectoryInfo($"{webRootPath}{GlobalConstants.ATTACHMENT_PATH_PROD_TEMP}{target}\\{_userId.Value}");
 
-            var originalPath = $"{webRootPath}{GlobalConstants.ATTACHMENT_PATH_PROD_TEMP}{target}\\{productionAttachment.FilePath}";
-
-            if (System.IO.File.Exists(originalPath))
-                System.IO.File.Delete(originalPath);
+            foreach (FileInfo file in directoryInfo.GetFiles())
+            {
+                file.Delete();
+            }            
 
             _productionServices.DeleteAttachment(productionAttachment);
         }

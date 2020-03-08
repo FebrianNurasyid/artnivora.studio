@@ -11,13 +11,14 @@ export const saveProduction = (prod, attachment) => async () => {
         "Themes": prod.themes,
         "Concept": prod.concept,
         "Status": prod.status,
+        "Remark": prod.remark,
+        "UploadedStatus": prod.uploadedstatus,
         "ProductionAttachments": [
             {
                 "ProductionAttachementId": attachment.id
             }
         ]
-    };
-    debugger;
+    };    
     const result = await fetch(url, {
         method: 'POST',
         headers: {

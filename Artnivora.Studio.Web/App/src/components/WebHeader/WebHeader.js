@@ -17,12 +17,12 @@ class WebHeader extends React.Component {
             <Header>
                 <NavItem>
                     <NavLink
-                        active={isOnPath(routingLocation.pathname, '/', true)}
+                        active={isOnPath(routingLocation.pathname, '/overview', true)}
                         tag={Link}
                         className="navmenu-link"
-                        to="/"
+                        to="/overview"
                     >
-                        Home
+                        Dashboard
                     </NavLink>
                 </NavItem>               
             </Header>

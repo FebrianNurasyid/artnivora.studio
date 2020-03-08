@@ -81,7 +81,7 @@
 				entity.CreationDate = DateTime.Now;
 
 				// For now the username is equal to the email. This is temporary!
-				entity.Username = entity.Email;
+				//entity.Username = entity.Email;
 
 				User userWithSameUsername = _userDataService.GetByUsername(entity.Username);
 				if (userWithSameUsername == null)

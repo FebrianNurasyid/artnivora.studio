@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { Map } from 'immutable';
-import { MdFace, MdSettings, MdBusinessCenter, MdFileUpload, MdWork, MdCreate, MdFontDownload } from "react-icons/md";
+import { MdFace, MdSettings, MdBusinessCenter, MdFileUpload, MdWork, MdCreate, MdFontDownload, MdNote } from "react-icons/md";
 import {
     VOLUNTEER,
     PARTICIPANT, 
@@ -68,6 +68,33 @@ export const masterssSubUrls = Map({
         icon: <MdFace />,
         disabled: false,
     }),
+});
+
+export const reportsSubUrls = Map({
+    'daily': Map({
+        to: '/reports/daily',
+        label: 'Daily Upload',
+        parent: 'reports',
+        matchExact: false,
+        icon: <MdFace />,
+        disabled: false,
+    }),
+    'weekly': Map({
+        to: '/reports/weekly',
+        label: 'Weekly Upload',
+        parent: 'reports',
+        matchExact: false,
+        icon: <MdFace />,
+        disabled: false,
+    }),
+    'monthly': Map({
+        to: '/reports/monthly',
+        label: 'Monthly Upload',
+        parent: 'reports',
+        matchExact: false,
+        icon: <MdFace />,
+        disabled: false,
+    })
 });
 
 export const userDetailUrls = Map({
@@ -153,6 +180,7 @@ export const sidebarUrls = Map({
         matchExact: true,
         icon: <MdBusinessCenter />,
         disabled: false,        
+        allowedRoles: [VOLUNTEER, PARTICIPANT],
     }),       
     'production': Map({
         to: '/production',
@@ -160,15 +188,15 @@ export const sidebarUrls = Map({
         matchExact: false,
         icon: <MdCreate />,
         disabled: false,
-        //allowedRoles: [VOLUNTEER, PARTICIPANT],
+        allowedRoles: [VOLUNTEER, PARTICIPANT],
     }),
-    'packing': Map({
-        to: '/production/packing',
-        label: 'Packing',        
+    'packaging': Map({
+        to: '/production/packaging',
+        label: 'Packaging',        
         matchExact: false,
         icon: <MdWork />,
         disabled: false,
-        //allowedRoles: [VOLUNTEER, PARTICIPANT],
+        allowedRoles: [VOLUNTEER, PARTICIPANT],
     }),
     'keywording': Map({
         to: '/production/keywording',
@@ -176,7 +204,7 @@ export const sidebarUrls = Map({
         matchExact: false,
         icon: <MdFontDownload />,
         disabled: false,
-        //allowedRoles: [VOLUNTEER, PARTICIPANT],
+        allowedRoles: [VOLUNTEER, PARTICIPANT],
     }),
     'uploading': Map({
         to: '/production/uploading',
@@ -184,7 +212,16 @@ export const sidebarUrls = Map({
         matchExact: false,
         icon: <MdFileUpload />,
         disabled: false,
-        //allowedRoles: [VOLUNTEER, PARTICIPANT],
+        allowedRoles: [VOLUNTEER, PARTICIPANT],
+    }),
+    'reports': Map({
+        to: '/reports',
+        label: 'Reporting',
+        children: reportsSubUrls,
+        matchExact: false,
+        icon: <MdNote />,
+        disabled: false,
+        allowedRoles: [VOLUNTEER, PARTICIPANT],
     }),
     'masters': Map({
         to: '/masters',

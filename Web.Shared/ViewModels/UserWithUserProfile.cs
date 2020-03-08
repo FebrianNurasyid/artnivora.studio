@@ -8,10 +8,11 @@ namespace Artnivora.Studio.Portal.Web.Shared.ViewModels
 
 		private UserProfile _userProfile;
 
-		private VolunteerProfile _volunteerProfile;
+		//private VolunteerProfile _volunteerProfile;
 
-		private ParticipantProfile _participantProfile;
-        private bool _isParticipant;
+		//private ParticipantProfile _participantProfile;
+        //private bool _isParticipant;
+
         /// <summary>
         /// Gets or sets the user.
         /// </summary>
@@ -54,17 +55,17 @@ namespace Artnivora.Studio.Portal.Web.Shared.ViewModels
 		/// <value>
 		/// The volunteer profile.
 		/// </value>
-		public VolunteerProfile VolunteerProfile
-		{
-			get
-			{
-				return this._volunteerProfile;
-			}
-			set
-			{
-				this._volunteerProfile = value;
-			}
-		}
+		//public VolunteerProfile VolunteerProfile
+		//{
+		//	get
+		//	{
+		//		return this._volunteerProfile;
+		//	}
+		//	set
+		//	{
+		//		this._volunteerProfile = value;
+		//	}
+		//}
 
 		/// <summary>
 		/// Gets or sets the participant profile.
@@ -72,21 +73,21 @@ namespace Artnivora.Studio.Portal.Web.Shared.ViewModels
 		/// <value>
 		/// The participant profile.
 		/// </value>
-		public ParticipantProfile ParticipantProfile
-		{
-			get
-			{
-				return this._participantProfile;
-			}
-			set
-			{
-				this._participantProfile = value;
-			}
-		}
+		//public ParticipantProfile ParticipantProfile
+		//{
+		//	get
+		//	{
+		//		return this._participantProfile;
+		//	}
+		//	set
+		//	{
+		//		this._participantProfile = value;
+		//	}
+		//}
 
-        public bool IsParticipant {
-            get { return this._isParticipant; }
-            set { this._isParticipant = value; }
-        }
+        //public bool IsParticipant {
+        //    get { return this._isParticipant; }
+        //    set { this._isParticipant = value; }
+        //}
 	}
 }

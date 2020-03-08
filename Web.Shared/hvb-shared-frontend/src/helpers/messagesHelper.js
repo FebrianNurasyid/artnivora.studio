@@ -22,10 +22,14 @@ export const formatDateForMessage = (date) => {
         year = d.getFullYear(),
         hour = d.getHours(),
         minute = d.getMinutes();
-    
+
+    if (minute < 10)
+        minute = '0' + minute;
+
     if (day.length < 2)
         day = '0' + day;
+
     var newDate = [day, month, year].join('-');
     var newHour = [hour, minute].join(':');
-    return [newDate, newHour].join(' ');
+    return [newDate, newHour].join(' ');    
 }

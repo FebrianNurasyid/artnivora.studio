@@ -24,6 +24,7 @@
         private DateTime? _uploadedDate;
         private string _uploadedBy;
         private string _uploadedStatus;
+        private string _remark;
 
         public Guid Id
         {
@@ -166,6 +167,17 @@
             set
             {
                 this._uploadedStatus = value;
+            }
+        }
+        public string Remark
+        {
+            get
+            {
+                return this._remark;
+            }
+            set
+            {
+                this._remark = value;
             }
         }
         public IEnumerable<ProductionAttachments> ProductionAttachments { get; set; }

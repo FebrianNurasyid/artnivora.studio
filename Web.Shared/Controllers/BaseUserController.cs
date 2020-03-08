@@ -4,7 +4,9 @@
     using Artnivora.Studio.Portal.Business.Models.Enums;
     using Artnivora.Studio.Portal.Business.Services;
     using Artnivora.Studio.Portal.Business.Services.Helpers;
+    using Artnivora.Studio.Portal.Web.Shared.Utilities;
     using Artnivora.Studio.Portal.Web.Shared.ViewModels;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Collections.Generic;
@@ -21,6 +23,8 @@
         private readonly ParticipantProfileService _participantProfileService;
         private readonly VolunteerProfileService _volunteerProfileService;
         private readonly EmailService _emailService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private Guid? _userId;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseUserController"/> class.
@@ -34,13 +38,15 @@
                                   ParticipantProfileService participantProfileService,
                                   UserService userService,
                                   UserRoleService userRoleService,
-                                  EmailService emailService) : base()
+                                  EmailService emailService, IHttpContextAccessor httpContextAccessor) : base()
         {
             this._userService = userService;
             this._userRoleService = userRoleService;
             this._volunteerProfileService = volunteerProfileService;
             this._participantProfileService = participantProfileService;
             this._emailService = emailService;
+            _httpContextAccessor = httpContextAccessor;
+            _userId = _httpContextAccessor.GetUserId();
         }
 
         /// <summary>
@@ -255,27 +261,17 @@
         /// <param name="user">The user.</param>
         /// <param name="isRecoveryPassword">if set to <c>true</c> [is recovery password].</param>
         /// <returns></returns>
-        public virtual IActionResult ConfigurePassword([FromBody] User user, [FromQuery] bool isRecoveryPassword)
+        public virtual IActionResult ConfigurePassword(string password)
         {
             try
             {
-                User foundUser = _userService.GetUserByActivationToken(user.Activation_Token.Value, isRecoveryPassword);
-
+                User foundUser = _userService.GetById(_userId.Value);
                 List<string> errors = new List<string>();
-
                 if (foundUser != null)
                 {
-                    if (isRecoveryPassword) // if reset password
-                    {
-                        foundUser.PasswordRecoveryToken = null;
-                        foundUser.PasswordRecoveryTokenExpiryDate = null;
-                    }
-                    else
-                    {
-                        foundUser.Activation_Token = null;
-                        foundUser.Account_Is_Activated = true;
-                    }
-                    foundUser.Password = SecurePasswordHasher.Hash(user.Password);
+                    foundUser.Activation_Token = null;
+                    foundUser.Account_Is_Activated = true;
+                    foundUser.Password = SecurePasswordHasher.Hash(password);
                     // Save user object:
                     errors.AddRange(_userService.Update(foundUser));
                     if (errors.Count > 0)

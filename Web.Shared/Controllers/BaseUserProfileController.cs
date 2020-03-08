@@ -162,8 +162,8 @@
                 List<string> errors = new List<string>();
 
                 var user = _userService.GetById(new Guid(userId));
-                if (userWithUserProfile.IsParticipant)
-                {
+                //if (userWithUserProfile)
+                //{
                     ParticipantProfile participantProfile = (ParticipantProfile)_participantProfileService.GetParticipantProfileByUser(user);
 
                     //// basic user profile table
@@ -184,36 +184,35 @@
                     
 
                     //participant table
-                    participantProfile.HealthcareProviderId = userWithUserProfile.ParticipantProfile.HealthcareProviderId;
+                    //participantProfile.HealthcareProviderId = userWithUserProfile.ParticipantProfile.HealthcareProviderId;
 
                     _participantProfileService.Save(participantProfile);
                     return Ok(participantProfile);
-                }
+                //}
 
-                VolunteerProfile volunteerProfile = (VolunteerProfile)_volunteerProfileService.GetVolunteerByUser(user);
+                //VolunteerProfile volunteerProfile = (VolunteerProfile)_volunteerProfileService.GetVolunteerByUser(user);
 
-                //// basic user profile table
-                volunteerProfile.UserProfile.FirstName = userProfile.FirstName;
-                volunteerProfile.UserProfile.LastName = userProfile.LastName;
-                volunteerProfile.UserProfile.Insertion = userProfile.Insertion;
-                volunteerProfile.UserProfile.Initial = userProfile.Initial;
-                volunteerProfile.UserProfile.MaidenName = userProfile.MaidenName;
-                volunteerProfile.UserProfile.MobileNumber = userProfile.MobileNumber;
-                volunteerProfile.UserProfile.Salutation = userProfile.Salutation;
-                volunteerProfile.UserProfile.PhoneNumber = userProfile.PhoneNumber;
-                volunteerProfile.UserProfile.Birthdate = userProfile.Birthdate;
-                volunteerProfile.UserProfile.ContactAddress = userProfile.ContactAddress;
-                volunteerProfile.UserProfile.HolidayWeekAgree = userProfile.HolidayWeekAgree;
-                volunteerProfile.UserProfile.TelephoneListAgree = userProfile.TelephoneListAgree;
-                volunteerProfile.UserProfile.User.Email = userInformation.Email;
+                ////// basic user profile table
+                //volunteerProfile.UserProfile.FirstName = userProfile.FirstName;
+                //volunteerProfile.UserProfile.LastName = userProfile.LastName;
+                //volunteerProfile.UserProfile.Insertion = userProfile.Insertion;
+                //volunteerProfile.UserProfile.Initial = userProfile.Initial;
+                //volunteerProfile.UserProfile.MaidenName = userProfile.MaidenName;
+                //volunteerProfile.UserProfile.MobileNumber = userProfile.MobileNumber;
+                //volunteerProfile.UserProfile.Salutation = userProfile.Salutation;
+                //volunteerProfile.UserProfile.PhoneNumber = userProfile.PhoneNumber;
+                //volunteerProfile.UserProfile.Birthdate = userProfile.Birthdate;
+                //volunteerProfile.UserProfile.ContactAddress = userProfile.ContactAddress;
+                //volunteerProfile.UserProfile.HolidayWeekAgree = userProfile.HolidayWeekAgree;
+                //volunteerProfile.UserProfile.TelephoneListAgree = userProfile.TelephoneListAgree;
+                //volunteerProfile.UserProfile.User.Email = userInformation.Email;
 
-                //participant table
-                volunteerProfile.MaritalStatus = userWithUserProfile.VolunteerProfile.MaritalStatus;
+                ////participant table
+                ////volunteerProfile.MaritalStatus = userWithUserProfile.VolunteerProfile.MaritalStatus;
 
 
-                _volunteerProfileService.Save(volunteerProfile);
-                return Ok(volunteerProfile);
-
+                //_volunteerProfileService.Save(volunteerProfile);
+                //return Ok(volunteerProfile);
 
             }
             catch (Exception ex)
