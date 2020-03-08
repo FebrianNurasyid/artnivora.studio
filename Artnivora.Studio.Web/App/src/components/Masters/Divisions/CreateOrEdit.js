@@ -73,7 +73,7 @@ class CreateOrEdit extends Component {
         const hasFilledAllValues = unfilledValues.count() === 0;
         
         if (hasFilledAllValues) {
-            //this.props.registerUser(this.state.fields.toJS());
+            this.props.registerUser(this.state.fields.toJS());
             alert("Save Here");
         } else {
             let errors = fromJS({});

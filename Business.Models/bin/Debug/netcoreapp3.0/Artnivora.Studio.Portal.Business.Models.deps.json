@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "Artnivora.Studio.Portal.Business.Models/1.0.0": {
+        "runtime": {
+          "Artnivora.Studio.Portal.Business.Models.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Artnivora.Studio.Portal.Business.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

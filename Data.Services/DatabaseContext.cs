@@ -24,22 +24,21 @@
         public DbSet<ParticipantProfile> ParticipantProfile { get; set; }
         public DbSet<VolunteerProfile> VolunteerProfile { get; set; }
         public DbSet<UserProfile> UserProfile { get; set; }
-
         public DbSet<UserRole> UserRole { get; set; }
         public DbSet<UserRoles> UserRoles { get; set; }
-
         //Messages
         public DbSet<Message> Message { get; set; }
         public DbSet<MailBox> MailBox { get; set; }
         public DbSet<MessageAttachments> MessageAttachments { get; set; }
         public DbSet<MessageAttachment> MessageAttachment { get; set; }
         public DbSet<Recipients> Recipients { get; set; }
-
         public DbSet<Production> Production { get; set; }
         public DbSet<ProductionAttachment> ProductionAttachment { get; set; }
         public DbSet<ProductionAttachments> ProductionAttachments { get; set; }
-
         public DbSet<Mst_Division> Mst_Division { get; set; }
+        public DbSet<Mst_Role> Mst_Role { get; set; }
+        public DbSet<Mst_Thema> Mst_Thema { get; set; }
+        public DbSet<Mst_Category> Mst_Category { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

@@ -114,6 +114,7 @@ namespace Artnivora.Studio.Portal.Web
             builder.RegisterType<EmailService>().InstancePerDependency();
             builder.RegisterType<ProductionServices>().InstancePerDependency();
             builder.RegisterType<MasterService>().InstancePerDependency();
+            builder.RegisterType<CategoryServices>().InstancePerDependency();
 
             // Data layer services
             builder.RegisterType<UserDataService>()
@@ -149,6 +150,18 @@ namespace Artnivora.Studio.Portal.Web
 
             builder.RegisterType<MasterDataService>()
            .As<IMasterDataService>()
+           .InstancePerDependency();
+
+            builder.RegisterType<CategoryDataService>()
+           .As<ICategoryDataService>()
+           .InstancePerDependency();
+
+            builder.RegisterType<RoleDataService>()
+           .As<IRoleDataSerive>()
+           .InstancePerDependency();
+
+            builder.RegisterType<ThemaDataService>()
+           .As<IThemaDataService>()
            .InstancePerDependency();
 
             builder.Populate(services);            

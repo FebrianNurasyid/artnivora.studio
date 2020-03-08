@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Artnivora.Studio.Portal.Business.Models
 {
-
     public class Mst_Division
     {
 
-        private Guid _id;
+        private Guid _Id;
         private string _DivisionName { get; set; }
         private DateTime _CretedDate { get; set; }
         private string _CretedBy { get; set; }
@@ -20,15 +17,27 @@ namespace Artnivora.Studio.Portal.Business.Models
         {
 
         }
+        //public Guid Id
+        //{
+        //    get
+        //    {
+        //        return _id = System.Guid.NewGuid();
+        //    }
+        //    set
+        //    {
+        //        this._id = value;
+        //    }
+        //}
+
         public Guid Id
         {
             get
             {
-                return this._id;
+                return this._Id;
             }
             set
             {
-                this._id = value;
+                this._Id= value;
             }
         }
 

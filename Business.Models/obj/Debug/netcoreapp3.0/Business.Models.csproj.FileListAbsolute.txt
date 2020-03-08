@@ -1,0 +1,8 @@
+D:\artnivora.studio\Business.Models\bin\Debug\netcoreapp3.0\Artnivora.Studio.Portal.Business.Models.deps.json
+D:\artnivora.studio\Business.Models\bin\Debug\netcoreapp3.0\Artnivora.Studio.Portal.Business.Models.dll
+D:\artnivora.studio\Business.Models\bin\Debug\netcoreapp3.0\Artnivora.Studio.Portal.Business.Models.pdb
+D:\artnivora.studio\Business.Models\obj\Debug\netcoreapp3.0\Business.Models.csprojAssemblyReference.cache
+D:\artnivora.studio\Business.Models\obj\Debug\netcoreapp3.0\Business.Models.AssemblyInfoInputs.cache
+D:\artnivora.studio\Business.Models\obj\Debug\netcoreapp3.0\Business.Models.AssemblyInfo.cs
+D:\artnivora.studio\Business.Models\obj\Debug\netcoreapp3.0\Artnivora.Studio.Portal.Business.Models.dll
+D:\artnivora.studio\Business.Models\obj\Debug\netcoreapp3.0\Artnivora.Studio.Portal.Business.Models.pdb

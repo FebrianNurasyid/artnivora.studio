@@ -1,0 +1,15 @@
+D:\artnivora.studio\Data.Services\bin\Debug\netcoreapp3.0\Artnivora.Studio.Portal.Data.Services.deps.json
+D:\artnivora.studio\Data.Services\bin\Debug\netcoreapp3.0\Artnivora.Studio.Portal.Data.Services.dll
+D:\artnivora.studio\Data.Services\bin\Debug\netcoreapp3.0\Artnivora.Studio.Portal.Data.Services.pdb
+D:\artnivora.studio\Data.Services\bin\Debug\netcoreapp3.0\Artnivora.Studio.Portal.Business.Models.dll
+D:\artnivora.studio\Data.Services\bin\Debug\netcoreapp3.0\Artnivora.Studio.Portal.Data.Interfaces.dll
+D:\artnivora.studio\Data.Services\bin\Debug\netcoreapp3.0\Artnivora.Studio.Portal.Data.Models.dll
+D:\artnivora.studio\Data.Services\bin\Debug\netcoreapp3.0\Artnivora.Studio.Portal.Business.Models.pdb
+D:\artnivora.studio\Data.Services\bin\Debug\netcoreapp3.0\Artnivora.Studio.Portal.Data.Interfaces.pdb
+D:\artnivora.studio\Data.Services\bin\Debug\netcoreapp3.0\Artnivora.Studio.Portal.Data.Models.pdb
+D:\artnivora.studio\Data.Services\obj\Debug\netcoreapp3.0\Data.Services.csprojAssemblyReference.cache
+D:\artnivora.studio\Data.Services\obj\Debug\netcoreapp3.0\Data.Services.AssemblyInfoInputs.cache
+D:\artnivora.studio\Data.Services\obj\Debug\netcoreapp3.0\Data.Services.AssemblyInfo.cs
+D:\artnivora.studio\Data.Services\obj\Debug\netcoreapp3.0\Data.Services.csproj.CopyComplete
+D:\artnivora.studio\Data.Services\obj\Debug\netcoreapp3.0\Artnivora.Studio.Portal.Data.Services.dll
+D:\artnivora.studio\Data.Services\obj\Debug\netcoreapp3.0\Artnivora.Studio.Portal.Data.Services.pdb

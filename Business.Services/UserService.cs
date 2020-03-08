@@ -84,13 +84,15 @@
 				entity.Username = entity.Email;
 
 				User userWithSameUsername = _userDataService.GetByUsername(entity.Username);
+
 				if (userWithSameUsername == null)
 				{
 					entity.Password = HashPasswordIfPresent(entity.Password);
 					_userDataService.Add(entity);
 					_userDataService.Save();
 					return entity;
-				} else
+				}
+				else
 				{
 					throw new ArgumentException($"User with username {entity.Username} already exists!");
 				}

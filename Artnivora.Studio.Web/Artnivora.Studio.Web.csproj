@@ -65,6 +65,7 @@
 
   <ItemGroup>
     <Folder Include="App\src\components\images\" />
+    <Folder Include="App\src\components\Masters\NewFolder\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
