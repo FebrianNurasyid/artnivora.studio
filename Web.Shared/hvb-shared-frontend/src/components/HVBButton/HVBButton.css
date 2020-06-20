@@ -11,7 +11,8 @@
     line-height: 1;
     border: 0 none;
     outline: 0 none;
-    border-radius: 10px !important;
+    border-radius: 0px !important;
+    width:120px !important;
 }
 
     .hvb-button:focus,
@@ -43,7 +44,7 @@
 }
 .btn-cancel {
     margin-left: 10px !important;
-    background-color: #a7a7a7 !important;
+    /*background-color: #a7a7a7 !important;*/
 
 
 }
@@ -52,8 +53,8 @@
     .btn-cancel:active,
     .btn-cancel:visited,
     .btn-cancel:hover {
-        background: #a7a7a7 !important;
-        border-color: #a7a7a7 !important;
+        /*background: #a7a7a7 !important;*/
+        /*border-color: #a7a7a7 !important;*/
     }
 
 .btn-draft {

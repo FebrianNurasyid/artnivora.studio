@@ -10,7 +10,7 @@
 
 .navmenu-link.active {
     background-color: #eb6200;
-    border-radius: 5px;
+    border-radius: 0px;
     color: #f8f9fa !important;
 }
 

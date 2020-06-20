@@ -48,7 +48,7 @@
 
 .purple-button {
     background-color: #662e90;
-    border-radius: 25px;
+    border-radius: 0px;
     text-align: center;
     width:200px;
     height:52px;
@@ -61,7 +61,7 @@
     background-color: #ec207c;
     border: #ec207c;
     text-align: center;
-    border-radius: 25px;
+    border-radius: 0px;
     width: 200px;
     height: 52px;
     color: #FFFFFF;

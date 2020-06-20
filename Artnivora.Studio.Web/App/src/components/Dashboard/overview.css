@@ -123,3 +123,9 @@ a {
 .hideNotification {
     display: none;
 }
+
+.overview-container-left > div > h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: #eb6200;
+    font-size: 32px;
+}

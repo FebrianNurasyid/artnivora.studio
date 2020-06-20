@@ -45,7 +45,7 @@ class Header extends React.Component {
             <header>
                 <Navbar sticky="top" className="navbar-expand-sm navbar-toggleable-sm hvb-header-base border-bottom" light >
                     <Container className="headerContainer">
-                        <NavbarBrand tag={Link} to="/">
+                        <NavbarBrand tag={Link} to="/overview">
                             <img src={logo} border="0" height={'51px'} />
                         </NavbarBrand>
                         <NavbarToggler onClick={this.toggle} className="mr-2" />

@@ -14,10 +14,10 @@ class Overview extends Component {
         super(props);
         this.state = {}
     }
+
     componentDidMount() {
         this.props.fetchDashboard();
     }
-
 
     render() {
         const hideNotification = this.props.userLoginDashboard
@@ -30,12 +30,12 @@ class Overview extends Component {
                     <div className="">
                         <h3>Hi <b>{this.props.userLoginDashboard.firstName}</b>, welcome back.</h3>
                         <hr className="style14" />
-                        <div className={`yellowsection ${notificationClassName}`}>
-                            <p>This is beta version, this dashboard does not work for a while, We are still on development progress. We will relase new version soon...
-                                <br/>
-                                This is notification center span, admin will added daily notification for all member here..</p>
-                            <Link to="/users/userprofile">Setup profile</Link>
-                        </div>                        
+                        <div className={`yellowsection ${notificationClassName}`}>                            
+                            <h5><i>Keep remain, Teamwork Make A Dream Works. Believe It . . .</i></h5>
+                            <hr className="style14" />
+                                Stay creative, innovative and positive thinking. . .                                
+                            {/*<Link to="/users/userprofile">Setup profile</Link>*/}
+                        </div>                                                
                         <div className="smallFlexBox">
                             <div className="holidaybox text-center">
                                 <span className="holidaybox-information">
@@ -44,6 +44,14 @@ class Overview extends Component {
                                     </span>
                                     <span>
                                         Production
+                                    </span>
+                                </span>
+                                <span className="holidaybox-information">
+                                    <span className="holidaybox-information-header">
+                                        <div>{this.props.userLoginDashboard.registeredCount ?? 0}</div>
+                                    </span>
+                                    <span>
+                                        Pending Item
                                     </span>
                                 </span>
                             </div>

@@ -1,10 +1,10 @@
 ﻿import React from 'react';
 import { Map } from 'immutable';
-import { MdFace, MdSettings, MdBusinessCenter, MdFileUpload, MdWork, MdCreate, MdFontDownload, MdNote } from "react-icons/md";
+import { MdFace, MdSettings, MdBusinessCenter, MdFileUpload, MdWork, MdCreate, MdFontDownload, MdNote, MdList } from "react-icons/md";
 import {
     VOLUNTEER,
     PARTICIPANT, 
-    GUEST
+    ADMIN
 } from 'hvb-shared-frontend/src/constants/roles';
 
 
@@ -36,65 +36,65 @@ export const masterssSubUrls = Map({
         icon: <MdFace />,
         disabled: false,
     }),
-    'roles': Map({
-        to: '/masters/roles',
-        label: 'Roles',
+    'brief': Map({
+        to: '/masters/brief',
+        label: 'Brief',
         parent: 'masters',
         matchExact: false,
         icon: <MdFace />,
         disabled: false,
     }),
-    'divisions': Map({
-        to: '/masters/divisions',
-        label: 'Divisions',
-        parent: 'masters',
-        matchExact: false,
-        icon: <MdFace />,
-        disabled: false,
-    }),
-    'category': Map({
-        to: '/masters/category',
-        label: 'Category',
-        parent: 'masters',
-        matchExact: false,
-        icon: <MdFace />,
-        disabled: false,
-    }),
-    'themes': Map({
-        to: '/masters/themes',
-        label: 'Themes',
-        parent: 'masters',
-        matchExact: false,
-        icon: <MdFace />,
-        disabled: false,
-    }),
+    //'roles': Map({
+    //    to: '/masters/roles',
+    //    label: 'Roles',
+    //    parent: 'masters',
+    //    matchExact: false,
+    //    icon: <MdFace />,
+    //    disabled: false,
+    //}),
+    //'divisions': Map({
+    //    to: '/masters/divisions',
+    //    label: 'Divisions',
+    //    parent: 'masters',
+    //    matchExact: false,
+    //    icon: <MdFace />,
+    //    disabled: false,
+    //}),
+    //'category': Map({
+    //    to: '/masters/category',
+    //    label: 'Category',
+    //    parent: 'masters',
+    //    matchExact: false,
+    //    icon: <MdFace />,
+    //    disabled: false,
+    //}),
+    //'themes': Map({
+    //    to: '/masters/themes',
+    //    label: 'Themes',
+    //    parent: 'masters',
+    //    matchExact: false,
+    //    icon: <MdFace />,
+    //    disabled: false,
+    //}),
 });
 
 export const reportsSubUrls = Map({
     'daily': Map({
-        to: '/reports/daily',
-        label: 'Daily Upload',
+        to: '/reports/uploadeditems',
+        label: 'Uploaded Items',
         parent: 'reports',
         matchExact: false,
         icon: <MdFace />,
         disabled: false,
     }),
     'weekly': Map({
-        to: '/reports/weekly',
-        label: 'Weekly Upload',
+        to: '/reports/productionitems',
+        label: 'Production Items',
         parent: 'reports',
         matchExact: false,
         icon: <MdFace />,
         disabled: false,
-    }),
-    'monthly': Map({
-        to: '/reports/monthly',
-        label: 'Monthly Upload',
-        parent: 'reports',
-        matchExact: false,
-        icon: <MdFace />,
-        disabled: false,
-    })
+    }),    
 });
 
 export const userDetailUrls = Map({
@@ -179,16 +179,24 @@ export const sidebarUrls = Map({
         label: 'Dashboard',
         matchExact: true,
         icon: <MdBusinessCenter />,
-        disabled: false,        
-        allowedRoles: [VOLUNTEER, PARTICIPANT],
-    }),       
+        disabled: false,
+        allowedRoles: [VOLUNTEER, PARTICIPANT, ADMIN],
+    }),     
+    'brief': Map({
+        to: '/brief',
+        label: 'Daily Brief',
+        matchExact: true,
+        icon: <MdList />,
+        disabled: false,
+        allowedRoles: [VOLUNTEER, PARTICIPANT, ADMIN],
+    }),     
     'production': Map({
         to: '/production',
         label: 'Production',        
         matchExact: false,
         icon: <MdCreate />,
         disabled: false,
-        allowedRoles: [VOLUNTEER, PARTICIPANT],
+        allowedRoles: [VOLUNTEER, PARTICIPANT, ADMIN],
     }),
     'packaging': Map({
         to: '/production/packaging',
@@ -196,7 +204,7 @@ export const sidebarUrls = Map({
         matchExact: false,
         icon: <MdWork />,
         disabled: false,
-        allowedRoles: [VOLUNTEER, PARTICIPANT],
+        allowedRoles: [VOLUNTEER, PARTICIPANT, ADMIN],
     }),
     'keywording': Map({
         to: '/production/keywording',
@@ -204,7 +212,7 @@ export const sidebarUrls = Map({
         matchExact: false,
         icon: <MdFontDownload />,
         disabled: false,
-        allowedRoles: [VOLUNTEER, PARTICIPANT],
+        allowedRoles: [VOLUNTEER, PARTICIPANT, ADMIN],
     }),
     'uploading': Map({
         to: '/production/uploading',
@@ -212,7 +220,7 @@ export const sidebarUrls = Map({
         matchExact: false,
         icon: <MdFileUpload />,
         disabled: false,
-        allowedRoles: [VOLUNTEER, PARTICIPANT],
+        allowedRoles: [VOLUNTEER, PARTICIPANT, ADMIN],
     }),
     'reports': Map({
         to: '/reports',
@@ -221,7 +229,7 @@ export const sidebarUrls = Map({
         matchExact: false,
         icon: <MdNote />,
         disabled: false,
-        allowedRoles: [VOLUNTEER, PARTICIPANT],
+        allowedRoles: [VOLUNTEER, PARTICIPANT, ADMIN],
     }),
     'masters': Map({
         to: '/masters',
@@ -230,7 +238,7 @@ export const sidebarUrls = Map({
         matchExact: false,
         icon: <MdSettings />,
         disabled: false,
-        allowedRoles: [VOLUNTEER, PARTICIPANT],
+        allowedRoles: [ADMIN],
     }),   
 });
 
@@ -258,27 +266,27 @@ export const headerUrls = Map({
         disabled: false,
         //allowedRoles: [GUEST],
     }),
-    'privacy-statement': Map({
-        to: '/users/privacy-statement',
-        label: 'Privacy Statement',
-        matchExact: false,
-        icon: <MdFace />,
-        disabled: false,
-    }),
-    'thankyou': Map({
-        to: '/users/thankyou',
-        label: 'Thank You',
-        matchExact: false,
-        icon: <MdFace />,
-        disabled: false,
-    }),
-    'activation': Map({
-        to: '/users/activation',
-        label: 'Activation',
-        matchExact: false,
-        icon: <MdFace />,
-        disabled: false,
-    }),
+    //'privacy-statement': Map({
+    //    to: '/users/privacy-statement',
+    //    label: 'Privacy Statement',
+    //    matchExact: false,
+    //    icon: <MdFace />,
+    //    disabled: false,
+    //}),
+    //'thankyou': Map({
+    //    to: '/users/thankyou',
+    //    label: 'Thank You',
+    //    matchExact: false,
+    //    icon: <MdFace />,
+    //    disabled: false,
+    //}),
+    //'activation': Map({
+    //    to: '/users/activation',
+    //    label: 'Activation',
+    //    matchExact: false,
+    //    icon: <MdFace />,
+    //    disabled: false,
+    //}),
     'userprofile': Map({
         to: '/personal-detail/userprofile',
         label: 'Personal Detail',
@@ -295,46 +303,46 @@ export const headerUrls = Map({
         disabled: false,
         allowedRoles: [VOLUNTEER, PARTICIPANT],
     }),
-    'roles': Map({
-        to: '/masters/roles',
-        label: 'Roles',
-        matchExact: false,
-        icon: <MdFace />,
-        disabled: false,
-        allowedRoles: [VOLUNTEER, PARTICIPANT],
-    }),
-    'category': Map({
-        to: '/masters/category',
-        label: 'Category',
-        matchExact: false,
-        icon: <MdFace />,
-        disabled: false,
-        allowedRoles: [VOLUNTEER, PARTICIPANT],
-    }),
-    'divisions': Map({
-        to: '/masters/divisions',
-        label: 'Divisions',
-        matchExact: false,
-        icon: <MdFace />,
-        disabled: false,
-        allowedRoles: [VOLUNTEER, PARTICIPANT],
-    }),
-    'themes': Map({
-        to: '/masters/themes',
-        label: 'Themes',
-        matchExact: false,
-        icon: <MdFace />,
-        disabled: false,
-        allowedRoles: [VOLUNTEER, PARTICIPANT],
-    }),
-    'volunteerprofile': Map({
-        to: '/personal-detail/volunteerprofile',
-        label: 'Volunteer Detail',
-        matchExact: false,
-        icon: <MdFace />,
-        disabled: false,
-        allowedRoles: [VOLUNTEER, PARTICIPANT],
-    }),   
+    //'roles': Map({
+    //    to: '/masters/roles',
+    //    label: 'Roles',
+    //    matchExact: false,
+    //    icon: <MdFace />,
+    //    disabled: false,
+    //    allowedRoles: [VOLUNTEER, PARTICIPANT],
+    //}),
+    //'category': Map({
+    //    to: '/masters/category',
+    //    label: 'Category',
+    //    matchExact: false,
+    //    icon: <MdFace />,
+    //    disabled: false,
+    //    allowedRoles: [VOLUNTEER, PARTICIPANT],
+    //}),
+    //'divisions': Map({
+    //    to: '/masters/divisions',
+    //    label: 'Divisions',
+    //    matchExact: false,
+    //    icon: <MdFace />,
+    //    disabled: false,
+    //    allowedRoles: [VOLUNTEER, PARTICIPANT],
+    //}),
+    //'themes': Map({
+    //    to: '/masters/themes',
+    //    label: 'Themes',
+    //    matchExact: false,
+    //    icon: <MdFace />,
+    //    disabled: false,
+    //    allowedRoles: [VOLUNTEER, PARTICIPANT],
+    //}),
+    //'volunteerprofile': Map({
+    //    to: '/personal-detail/volunteerprofile',
+    //    label: 'Volunteer Detail',
+    //    matchExact: false,
+    //    icon: <MdFace />,
+    //    disabled: false,
+    //    allowedRoles: [VOLUNTEER, PARTICIPANT],
+    //}),   
     'creatediv': Map({
         to: '/masters/division',
         label: 'Add Division',
@@ -349,8 +357,16 @@ export const headerUrls = Map({
         matchExact: false,
         icon: <MdFace />,
         disabled: false,
-        //allowedRoles: [GUEST],
-    }),    
+        allowedRoles: [VOLUNTEER, PARTICIPANT, ADMIN],
+    }),  
+    'addoreditbrief': Map({
+        to: '/brief/addoreditbrief',
+        label: 'Add or Edit Brief',
+        matchExact: false,
+        icon: <MdFace />,
+        disabled: false,
+        allowedRoles: [VOLUNTEER, PARTICIPANT, ADMIN],
+    }),  
 });
 
 export const allUrls = sidebarUrls.concat(headerUrls);

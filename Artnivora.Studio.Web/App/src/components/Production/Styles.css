@@ -148,7 +148,7 @@
     line-height: 1;
     border: 0 none;
     outline: 0 none;
-    border-radius: 10px !important;    
+    border-radius: 5px !important;    
     right:0px;
 }
 
@@ -183,4 +183,21 @@
 .texarea-option {
     height: 150px;
     width: 100%;
+}
+
+.attachment-button {
+    border-width: 1px;
+    border-style: solid;
+    font-size: 14px;
+    color: #FFF;
+    padding: 12px 17px;
+    background: #343434;
+    border-color: #343434;
+    display: inline-block;
+    transition: all .25s ease;
+    font-weight: 400;
+    line-height: 1;
+    border: 0 none;
+    outline: 0 none;
+    border-radius: 5px;
 }

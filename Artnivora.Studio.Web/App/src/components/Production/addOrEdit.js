@@ -288,7 +288,7 @@ class AddOrEdit extends Component {
                     <label className="col-sm-2 col-form-label"></label>
                     <div className="col-md-6">
                         <HVBButton
-                            className="btn btn-primary"
+                            
                             type="button"
                             onClick={this.handleSubmit}
                         >Submit</HVBButton>

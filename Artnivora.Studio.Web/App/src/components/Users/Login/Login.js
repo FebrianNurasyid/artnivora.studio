@@ -9,6 +9,7 @@ import ForgotPassword from '../Modals/ForgotPassword';
 import HVBButton from 'hvb-shared-frontend/src/components/HVBButton/HVBButton';
 import './Styles.css';
 import { Redirect } from 'react-router-dom'
+import banner from './banner.png';
 
 class Login extends Component {
 
@@ -72,7 +73,7 @@ class Login extends Component {
             <div className="flex-container">
                     <div className="form-group" >
                         <div className="imgesc">
-                        <img src="https://omextemplates.content.office.net/support/templates/en-us/lt67670762.png" alt="HTML5" ></img>
+                        <img src={banner}  alt="HTML5" ></img>
                         </div>
                     </div>
 

@@ -23,7 +23,7 @@ namespace Artnivora.Studio.Portal.Web.Controllers
 		[HttpPost("Authenticate")]
         public override IActionResult Authenticate([FromBody]AuthenticateModel model)
         {
-			return base.AuthenticateUser(model, new List<UserRoleType> { UserRoleType.Participant, UserRoleType.Volunteer });
+			return base.AuthenticateUser(model, new List<UserRoleType> { UserRoleType.Participant, UserRoleType.Volunteer,UserRoleType.Admin });
 		}
 
 		[AllowAnonymous]
